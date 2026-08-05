@@ -1,0 +1,150 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 10 10 20;
+    --surface: 18 18 31;
+    --text-primary: 255 255 255;
+    --text-secondary: 156 163 175;
+
+    /* Design tokens - spacing scale */
+    --section-gap: 6rem;
+
+    /* Easing curves (emil-design-eng) */
+    --ease-out-strong: cubic-bezier(0.23, 1, 0.32, 1);
+    --ease-in-out-strong: cubic-bezier(0.77, 0, 0.175, 1);
+  }
+
+  body {
+    background-color: #0A0A14;
+    color: #FFFFFF;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Typography hierarchy (apple-design §15) */
+  h1, h2, h3 {
+    letter-spacing: -0.02em;
+    font-optical-sizing: auto;
+  }
+
+  h1 { line-height: 1.1; }
+  h2 { line-height: 1.15; }
+  h3 { line-height: 1.2; }
+}
+
+/* Text gradient utility */
+.text-gradient {
+  background: linear-gradient(135deg, #8B5CF6 0%, #3B82F6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Glow card base */
+.glow-card {
+  position: relative;
+  background: #12121F;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.3s var(--ease-out-strong);
+}
+
+.glow-card:hover {
+  border-color: rgba(139, 92, 246, 0.4);
+  box-shadow: 0 0 30px -5px rgba(139, 92, 246, 0.25);
+  transform: translateY(-2px);
+}
+
+/* Spotlight card cursor-tracking glow (emil-design-eng principle: unseen details compound) */
+.spotlight-card {
+  --spotlight-x: -100px;
+  --spotlight-y: -100px;
+}
+
+.spotlight-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    400px circle at var(--spotlight-x) var(--spotlight-y),
+    rgba(139, 92, 246, 0.10),
+    transparent 60%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.spotlight-card:hover::before {
+  opacity: 1;
+}
+
+/* Spotlight border glow effect */
+.spotlight-card::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: radial-gradient(
+    300px circle at var(--spotlight-x) var(--spotlight-y),
+    rgba(139, 92, 246, 0.30),
+    transparent 50%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  z-index: 0;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  -webkit-mask-composite: xor;
+  padding: 1px;
+}
+
+.spotlight-card:hover::after {
+  opacity: 1;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0A0A14;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1E1E32;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #8B5CF6;
+}
+
+/* Reduced Motion - respect user preferences (apple-design §14) */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Gate hover animations behind pointer-fine (apple-design §Accessibility) */
+@media (hover: none) {
+  .spotlight-card::before,
+  .spotlight-card::after {
+    display: none;
+  }
+}

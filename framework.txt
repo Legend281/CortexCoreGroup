@@ -1,0 +1,1063 @@
+System order 
+Phase 0
+Architecture
+
+↓
+
+Phase 1
+Backend/API
+
+↓
+
+Phase 2
+Admin Dashboard
+
+↓
+
+Phase 3
+Public Website
+
+↓
+
+Phase 4
+Marketplace
+
+↓
+
+Phase 5
+Client Portal
+
+↓
+
+Phase 6
+Mobile Apps
+
+-----------------------------------------------------------------------------------------------------------------------
+Phase 0 — System Architecture
+This phase has almost no frontend.
+
+Instead we answer questions like
+
+How many applications exist?
+How do they communicate?
+Authentication?
+Authorization?
+API standards?
+Naming conventions?
+Folder structure?
+Logging?
+Security?
+Database?
+Deployment?
+CI/CD?
+Monitoring?
+
+Think of this as writing the constitution before building the city.
+
+This is where we make all the decisions before writing production code.
+
+Deliverables:
+
+System architecture
+Security architecture
+Threat model
+ER diagram
+Database schema
+API specification (OpenAPI)
+UI/UX design system
+Component library
+Folder structure
+Git workflow
+CI/CD pipeline
+Coding standards
+Documentation
+Infrastructure plan
+Deployment strategy
+
+At the end of this phase, there should be almost no uncertainty about how the platform will be built.
+
+-----------------------------------
+Phase 1 — Backend First
+
+This is where everything begins.
+
+Build
+
+Authentication
+
+Users
+
+Permissions
+
+Projects
+
+Services
+
+Team
+
+Testimonials
+
+Blogs
+
+Assets
+
+Media
+
+Settings
+
+Only APIs.
+
+Example
+
+POST /login
+
+POST /services
+
+GET /services
+
+PATCH /services/:id
+
+DELETE /services/:id
+
+No website.
+
+No dashboard.
+
+Just APIs.
+
+Test everything with Postman or Bruno.
+
+Once the API is stable...
+
+Never touch it unless necessary.
+
+This is the core that everything else depends on.
+
+Authentication
+Login
+Logout
+Refresh tokens
+Password reset
+Email verification
+MFA
+Device management
+Session management
+Authorization
+RBAC
+ABAC
+Permission engine
+Resource ownership
+Policy evaluation
+Database
+PostgreSQL
+Prisma
+Migrations
+Seeders
+Backup strategy
+Infrastructure
+API
+Logging
+Error handling
+Caching
+Rate limiting
+Monitoring
+Health checks
+-------------------------------------------------
+Phase 2
+Now create the Dashboard.
+
+Why?
+
+Because the dashboard is simply another API client.
+
+Dashboard
+
+↓
+
+POST /projects
+
+↓
+
+API
+
+↓
+
+Database
+
+Once this works...
+
+Everything else becomes easy.
+
+Modules:
+
+Dashboard
+Analytics
+Services
+Projects
+Team
+Clients
+Testimonials
+Careers
+Blog
+Assets
+Categories
+Tags
+Contact messages
+Newsletter
+SEO
+Site settings
+User management
+Audit logs
+Media library
+
+Every module supports full CRUD operations.
+
+This phase turns your backend into a usable product for your team.
+--------------------------------------------------
+Phase 3
+
+Finally...
+
+Create the beautiful website.
+
+Only now do we build the marketing site.
+
+Pages:
+
+Home
+About
+Services
+Projects
+Shop
+Team
+Blog
+Careers
+Contact
+Privacy Policy
+Terms
+Case Studies
+FAQs
+
+Everything pulls content from the API.
+
+No hardcoded data.
+
+The website is effectively a read-only client for your platform.
+
+
+Notice something amazing.
+
+The website contains almost zero business logic.
+
+Website
+
+↓
+
+GET /homepage
+
+↓
+
+Render
+
+That's it.
+
+This is how companies think
+
+Imagine Spotify.
+
+The mobile app isn't the source.
+
+The backend is.
+
+The dashboard isn't the source.
+
+The backend is.
+
+The website isn't the source.
+
+The backend is.
+
+Everything consumes APIs.
+
+Even Better...
+
+I would split your repositories.
+
+Instead of
+
+coretext
+
+I'd have
+
+coretext-api
+
+coretext-dashboard
+
+coretext-web
+
+coretext-mobile
+
+coretext-design-system
+
+coretext-sdk
+
+Each one has a single responsibility.
+
+The Design System
+
+This is something many startups skip.
+
+I would actually build this before the dashboard.
+
+Buttons
+
+Cards
+
+Forms
+
+Inputs
+
+Dropdowns
+
+Tables
+
+Modals
+
+Sidebar
+
+Navbar
+
+Charts
+
+Loading
+
+Skeletons
+
+Animations
+
+These become a package.
+
+Example
+
+@coretext/ui
+
+Then
+
+Dashboard uses it.
+
+Website uses it.
+
+Future client portal uses it.
+
+Future marketplace uses it.
+
+Everything looks identical.
+
+The API should never know who is calling it
+
+This is a principle I absolutely love.
+
+Your API shouldn't care whether the request comes from
+
+Website
+
+Dashboard
+
+Flutter App
+
+React Native App
+
+Future AI Assistant
+
+Partner Portal
+
+Desktop App
+
+It only knows
+
+Valid Request
+
+↓
+
+Authenticate
+
+↓
+
+Authorize
+
+↓
+
+Respond
+
+That's a beautiful architecture.
+
+Build for 2030, not for today
+
+I know you're thinking long-term.
+
+So I'd make sure the API can support future products without changes.
+
+Imagine in two years you launch
+
+CoreText Mobile
+
+CoreText AI
+
+CoreText Marketplace
+
+CoreText Academy
+
+CoreText Clients
+
+CoreText Developers
+
+All of them use the same API.
+
+No rewrites.
+
+Since you're studying Information Security...
+
+Here's something I think you'll enjoy.
+
+I wouldn't stop at authentication.
+
+I'd build Security as its own module.
+
+Authentication
+
+Authorization
+
+↓
+
+Security Engine
+
+↓
+
+Business Logic
+
+The Security Engine would handle things like:
+
+Token validation
+Permission evaluation
+Rate limiting
+Device fingerprint checks
+IP reputation
+Geographic restrictions (if needed)
+Audit logging
+Request signatures (for sensitive endpoints)
+Security event generation
+
+That keeps security concerns centralized instead of scattering checks throughout the application.
+
+If this were my company, this would be my roadmap
+Stage 1 — Foundation
+System architecture
+Security architecture
+Database schema
+API specification (OpenAPI)
+Design system
+Repository structure
+CI/CD pipeline
+Stage 2 — Core Platform
+Authentication & authorization
+Backend API
+Media service
+Audit logging
+Notifications
+Admin dashboard
+Stage 3 — Public Presence
+Marketing website
+SEO
+Blog
+Contact forms
+Analytics
+Stage 4 — Digital Products
+Asset marketplace
+Payments
+Licensing
+Downloads
+Customer accounts
+Stage 5 — Scale
+Mobile app
+Client portal
+AI-powered features
+Monitoring and observability
+Multi-region deployment
+--------------------------------------------------------------------------------------
+
+Phase 4 — Marketplace & Customer Platform
+
+This is where CoreText evolves beyond a company website.
+
+User Accounts
+
+Customers can:
+
+Register
+Login
+Manage profiles
+View downloads
+Manage purchases
+Manage licenses
+Save favorites
+Marketplace
+
+Users can browse:
+
+UI Kits
+Source Code
+Templates
+Figma Files
+WordPress Themes
+React Components
+Flutter Templates
+Icons
+AI Prompts
+E-books
+Payments
+
+Integrate:
+
+Stripe
+Lemon Squeezy
+PayPal (optional)
+
+Features:
+
+Checkout
+Invoices
+Taxes
+Coupons
+Refunds
+Subscription support (future)
+Downloads
+
+Secure delivery with:
+
+Signed URLs
+Download limits
+License validation
+Purchase verification
+Reviews
+
+Users can:
+
+Leave ratings
+Write reviews
+Report abuse
+Search
+
+Advanced search by:
+
+Category
+Technology
+Price
+Popularity
+Date
+Tags
+
+----------------------------------------------------------------------------------------
+
+Phase 5 — Enterprise & Automation
+
+This phase focuses on operating the platform efficiently as it grows.
+
+AI Assistant
+
+For administrators:
+
+Generate service descriptions
+Draft blog posts
+Create SEO metadata
+Summarize contact messages
+Generate project case studies
+Notifications
+
+Real-time:
+
+New messages
+New purchases
+Failed logins
+System alerts
+New applications
+Email System
+
+Automated:
+
+Welcome emails
+Password resets
+Purchase receipts
+Newsletter campaigns
+Job application updates
+Reporting
+
+Dashboards for:
+
+Revenue
+Downloads
+Users
+Marketing
+Sales
+Performance
+Security
+Security Center
+
+A dedicated section for:
+
+Login history
+Device management
+Suspicious activity
+API usage
+Audit logs
+Permission reviews
+Security alerts
+Monitoring
+
+Integrate tools for:
+
+Performance monitoring
+Error tracking
+Uptime monitoring
+Log aggregation
+
+----------------------------------------------------------------------------------------
+ After these phases, we must ensure 
+Internationalization (multiple languages)
+Multi-currency support
+Regional deployments
+Advanced analytics
+Enterprise SSO
+Compliance (SOC 2, ISO 27001, GDPR, etc)
+
+
+
+-------------------------------------------------------------------------------------------
+
+
+
+Frontend
+Next.js 15 (App Router)
+React
+TypeScript
+Tailwind CSS v4
+Framer Motion
+GSAP
+React Hook Form
+Zod
+TanStack Query
+Shadcn/ui
+Lucide Icons
+Backend
+Next.js Route Handlers
+tRPC (or REST if preferred)
+Prisma ORM
+PostgreSQL
+Redis (optional for caching and queues)
+Authentication
+Better Auth (excellent modern choice)
+Clerk (managed option with great DX)
+Storage
+Cloudflare R2 (recommended for cost)
+Supabase Storage (simple integration)
+Rich Text
+Tiptap Editor
+Image Upload
+UploadThing
+Cloudinary (optional for transformations)
+Emails
+Resend
+Payments (for future assets)
+Stripe
+Lemon Squeezy (excellent for digital products)
+Deployment
+Vercel (frontend/API)
+Neon or Supabase (PostgreSQL)
+Cloudflare R2 (files)
+
+
+domains 
+coretextgroup.com
+
+admin.coretextgroup.com
+
+api.coretextgroup.com
+
+assets.coretextgroup.com
+
+cdn.coretextgroup.com
+
+status.coretextgroup.com
+
+The privileges and implement RBAC and ABAC
+Owner
+
+Super Admin
+
+Developer
+
+HR
+
+Finance
+
+Marketing
+
+Content Writer
+
+Support
+
+Guest
+
+Read Only
+
+
+
+API Gateway
+Responsibilities: 
+authentication
+rate limiting
+request validation
+logging
+WAF integration
+API versioning
+
+
+use WAF in this case Cloudfare and put everyting infront of a reverse proxy like Nginx 
+the Database should never be reached by the internet. the database accepts traffic only from the API server not even the website itself
+
+Don't expose 5432 to the public Internet. Keep PostgreSQL on a private network.
+
+never oush API_KEY and JWT_SECRET inside Git
+
+Authenication: use passkets and TOTP for admins not just passwords and every admin must have MFA enables and no option to disable.
+
+use session security 
+Short JWT + Refresh Token + Rotation + Device Binding
+
+also detects Monitoring. It should have a certain pathens. it should start from cameroon. any super admin or admin login out of Cameroon should be flagged and logs session send to the supper admin
+
+Saves audit logs and no one can edit it not even admins
+
+Immutable Logs
+
+Forward important security logs to a separate logging system where they cannot be altered by the application itself. That way, even if an attacker gains administrative access, forensic evidence is preserved.
+
+Always send this security headers: Content Security Policy, HSTS, X-Frame-Options, Referrer-Policy, Permissions-Policy, X-Content-Type-Options
+
+ensures Content Security Policy
+
+Validate everyinput (length, type, enum, format, etc) . never trust the client
+
+always avoid SQL injection. 
+never do;
+ SELECT * FROM users
+WHERE email=' " + email
+rather, always parameterized queries
+
+
+never trust uploads, always chech MIME type, file signature, size, extension, image dimensions and always scan with antivirus and rename files before you safe. 
+
+never expose storage buckets. rather generate temporal URLs atleast every 5 minutes intervals
+
+use TLS 1.3 to always Encrypt sensitive data at rest where appropriate, and use HTTPS everywhere.
+
+use Argon2id or bcrypt for passwords as SHA and MD5 are already comprohmised. 
+
+for the API security every endpoint should Authentication, Authorization, Validation, Logging, Rate Limit, Response Sanitization
+
+for the DDos we use Cloudflare, Rate Limits and caching
+
+to detech bots we use Cloudflare Turnstile
+
+security monitoring; 
+Failed Logins
+403
+404
+500
+Suspicious Payloads
+Privilege Escalation Attempts
+Deleted Records
+Permission Changes
+Large File Uploads
+always alert the above unusuall pattern
+
+always keep weekly backup and encrpt them, before stire test restores regularly. Note that a backup that hasnt been restores is an assumption of not a guarantee
+
+CI/CD security 
+Every push
+
+↓
+
+Static Analysis
+
+↓
+
+Dependency Audit
+
+↓
+
+Secret Scan
+
+↓
+
+Tests
+
+↓
+
+Build
+
+↓
+
+Deploy
+
+Never deploy directly from a developer laptop to production.
+
+
+always monitor third party dependecies, remove unused packages and pin versions where appropriate
+
+
+Pentesting
+Test for ; 
+SQL injection
+XSS (stored, reflected, DOM)
+CSRF
+SSRF
+Path traversal
+IDOR (Broken Object Level Authorization)
+Broken authentication
+JWT attacks
+Session fixation
+Session hijacking
+Clickjacking
+Command injection
+File upload bypasses
+Mass assignment
+Rate-limit bypasses
+Race conditions
+API abuse
+Broken access control
+Open redirects
+Deserialization issues
+Dependency vulnerabilities
+
+The goal is to find weaknesses before someone else does.
+
+------------------------------------------------------------------
+NOTE this before we write any code
+Here's what I think our workflow should be
+Step 1: Finalize the Platform Architecture
+
+This is where we define:
+
+Overall system architecture
+Security architecture
+Deployment architecture
+Repository structure
+Database schema
+API standards
+Naming conventions
+Coding standards
+Folder structure
+
+This document rarely changes.
+
+Step 2: Design Everything
+
+Before writing code, we complete the UI/UX.
+
+That means:
+
+Public website
+Admin dashboard
+Marketplace
+Authentication pages
+Error pages
+Emails
+Mobile responsiveness
+
+Every screen should exist in Figma first.
+
+Developers should never have to guess.
+
+Step 3: Define the Database
+
+Design every table.
+
+For example:
+
+Users
+
+Roles
+
+Permissions
+
+Services
+
+Projects
+
+TeamMembers
+
+Clients
+
+Testimonials
+
+Blogs
+
+Assets
+
+Categories
+
+Orders
+
+Downloads
+
+Notifications
+
+AuditLogs
+
+Media
+
+Settings
+
+Messages
+
+Relationships should already be clear.
+
+Step 4: Design the API
+
+Before coding, define every endpoint.
+
+Example:
+
+POST   /auth/login
+
+POST   /auth/logout
+
+GET    /projects
+
+POST   /projects
+
+PATCH  /projects/{id}
+
+DELETE /projects/{id}
+
+GET    /services
+
+POST   /services
+
+By the time we code, every endpoint already has a purpose.
+
+Step 5: Build the Security Model
+
+This is one area I think deserves first-class attention.
+
+We'll define:
+
+Authentication flow
+Authorization model (RBAC + ABAC)
+JWT/session strategy
+MFA
+API protection
+Rate limiting
+File upload validation
+Audit logging
+Backup strategy
+Incident response approach
+
+Once these rules are in place, they become part of every feature we build.
+
+Step 6: Build the Design System
+
+Instead of creating buttons and cards repeatedly, we build them once.
+
+Examples:
+
+Button
+
+Input
+
+Card
+
+Modal
+
+Table
+
+Sidebar
+
+Navbar
+
+Avatar
+
+Badge
+
+Toast
+
+Pagination
+
+Chart
+
+Empty State
+
+Skeleton Loader
+
+Everything else reuses these components.
+
+Step 7: Build the Backend
+
+Now we finally start writing production code.
+
+Because the architecture is already defined, the backend becomes much more straightforward.
+
+Step 8: Build the Dashboard
+
+Connect it to the API.
+
+Every CRUD operation is now functional.
+
+Step 9: Build the Public Website
+
+The website simply consumes data from the API.
+
+No hardcoded content.
+
+Step 10: Build Future Products
+
+Now we can add:
+
+Marketplace
+Client Portal
+Mobile App
+AI Assistant
+
+without redesigning the platform.
+
+------------------------------------------------------------------
+
+
+FTP Pass: U^yjy]$LFK0engo6
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

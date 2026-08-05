@@ -1,0 +1,48 @@
+{
+  "name": "cortex-website",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit"
+  },
+  "prisma": {
+    "seed": "ts-node --compiler-options \"{\\\"module\\\":\\\"CommonJS\\\"}\" prisma/seed.ts"
+  },
+  "dependencies": {
+    "@base-ui-components/react": "^1.0.0-alpha.6",
+    "@hookform/resolvers": "^5.7.1",
+    "@prisma/adapter-pg": "^7.9.1",
+    "@prisma/client": "^7.9.1",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.1",
+    "framer-motion": "^11.11.10",
+    "lucide-react": "^0.453.0",
+    "next": "14.2.15",
+    "pg": "^8.22.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-hook-form": "^7.84.0",
+    "resend": "^6.18.1",
+    "tailwind-merge": "^2.5.4",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@types/node": "^20.16.12",
+    "@types/pg": "^8.20.3",
+    "@types/react": "^18.3.11",
+    "@types/react-dom": "^18.3.1",
+    "autoprefixer": "^10.4.20",
+    "eslint": "^8.57.1",
+    "eslint-config-next": "14.2.15",
+    "postcss": "^8.4.47",
+    "prisma": "^7.9.1",
+    "tailwindcss": "^3.4.14",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.23.5",
+    "typescript": "^5.6.3"
+  }
+}
