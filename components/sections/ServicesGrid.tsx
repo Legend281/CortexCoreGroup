@@ -91,6 +91,11 @@ export const ServicesGrid: React.FC<ServicesGridProps> = ({ services }) => {
           return true;
         });
 
+  const displayedServices =
+    activeCategory === "All Capabilities"
+      ? filteredServices.slice(0, 5)
+      : filteredServices;
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -147,7 +152,7 @@ export const ServicesGrid: React.FC<ServicesGridProps> = ({ services }) => {
           viewport={{ once: true, margin: "-50px" }}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
         >
-          {filteredServices.map((service, index) => {
+          {displayedServices.map((service, index) => {
             const IconComponent = ICON_MAP[service.iconName] || Code2;
             const iconStyle = ICON_STYLES[index % ICON_STYLES.length];
             const isFeaturedHero = index === 0;
@@ -221,6 +226,23 @@ export const ServicesGrid: React.FC<ServicesGridProps> = ({ services }) => {
             );
           })}
         </motion.div>
+
+        {/* View More Services Button */}
+        {activeCategory === "All Capabilities" && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4, delay: 0.2 }}
+            className="mt-12 flex justify-center"
+          >
+            <Link href="/services">
+              <Button variant="primary" size="lg" showArrow className="group shadow-glow-purple">
+                Explore All {list.length} Capabilities
+              </Button>
+            </Link>
+          </motion.div>
+        )}
       </div>
 
       {/* Slide-Over Service Detail Drawer */}

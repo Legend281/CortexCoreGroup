@@ -8,7 +8,7 @@ export async function GET() {
     });
 
     // Normalize flat DB fields into the nested `socials` shape the UI expects
-    const team = rawTeam.map((member) => ({
+    const team = rawTeam.map((member: any) => ({
       id: member.id,
       name: member.name,
       role: member.role,

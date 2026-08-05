@@ -8,7 +8,7 @@ export async function GET() {
     });
 
     // Normalize flat DB testimonial fields into the nested shape the UI expects
-    const projects = rawProjects.map((project) => ({
+    const projects = rawProjects.map((project: any) => ({
       id: project.id,
       number: project.number,
       category: project.category,
