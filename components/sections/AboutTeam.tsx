@@ -125,9 +125,17 @@ export const AboutTeam: React.FC<AboutTeamProps> = ({ members }) => {
                   <div>
                     {/* Top Header: Avatar + Category Pill */}
                     <div className="flex items-center gap-4 mb-5">
-                      <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${avatarGradient} flex items-center justify-center text-white text-lg font-bold shadow-lg shrink-0 group-hover:scale-105 transition-transform`}>
-                        {initials}
-                      </div>
+                      {member.image ? (
+                        <img
+                          src={member.image}
+                          alt={member.name}
+                          className="w-14 h-14 rounded-2xl object-cover shadow-lg shrink-0 group-hover:scale-105 transition-transform border border-white/10"
+                        />
+                      ) : (
+                        <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${avatarGradient} flex items-center justify-center text-white text-lg font-bold shadow-lg shrink-0 group-hover:scale-105 transition-transform`}>
+                          {initials}
+                        </div>
+                      )}
                       <div>
                         <h4 className="text-lg font-bold text-white group-hover:text-accent-purple transition-colors">
                           {member.name}

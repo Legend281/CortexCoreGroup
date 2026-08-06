@@ -18,25 +18,25 @@ const QUOTES = [
   {
     quote:
       "Zero-downtime architecture and automated CI/CD aren't nice-to-have goals — they are our baseline requirement for every client deployment.",
-    author: "Brenda Ngang",
+    author: "Precious Acha",
     role: "CTO & Infrastructure Lead",
-    initials: "BN",
+    initials: "PA",
     color: "from-blue-600 to-cyan-500",
   },
   {
     quote:
       "UI polish and micro-physics are invisible until they're missing. We obsess over every pixel, transition, and spring animation.",
-    author: "David Takor",
+    author: "Mai Randy",
     role: "Head of Product Design",
-    initials: "DT",
+    initials: "MR",
     color: "from-pink-600 to-purple-600",
   },
   {
     quote:
       "Agile speed only works when paired with transparent communication. We keep our clients synchronized through bi-weekly live staging demos.",
-    author: "Linda Ngono",
+    author: "Ngum Caleb",
     role: "Agile Delivery Lead",
-    initials: "LN",
+    initials: "NC",
     color: "from-emerald-600 to-teal-500",
   },
 ];

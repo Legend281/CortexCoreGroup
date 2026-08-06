@@ -14,7 +14,7 @@ const COMMITS = [
     icon: Code2,
   },
   {
-    author: "Brenda Ngang",
+    author: "Precious Acha",
     role: "CTO",
     message: "deployed terraform module: AWS ECS cluster autoscale policy",
     time: "45 mins ago",
@@ -22,7 +22,7 @@ const COMMITS = [
     icon: ShieldCheck,
   },
   {
-    author: "Martin Ndifon",
+    author: "Ayamelack Fotsa",
     role: "AI Engineer",
     message: "updated vector store index: RAG memory pipeline embedding v3.0",
     time: "2 hours ago",
@@ -30,7 +30,7 @@ const COMMITS = [
     icon: Cpu,
   },
   {
-    author: "David Takor",
+    author: "Mai Randy",
     role: "Head of Design",
     message: "pushed Figma tokens: 2026 glassmorphism component library",
     time: "4 hours ago",

@@ -110,11 +110,19 @@ export const TeamStrip: React.FC<TeamStripProps> = ({
                   className="p-5 text-center group flex flex-col items-center bg-surface/40 backdrop-blur-md border border-white/10 hover:border-accent-purple/50 hover:-translate-y-1.5 transition-all duration-300 h-full justify-between"
                 >
                   <div className="flex flex-col items-center w-full">
-                    {/* Gradient Initial Avatar Badge */}
+                    {/* Image or Gradient Initial Avatar Badge */}
                     <div className="relative w-full aspect-square rounded-2xl mb-4 overflow-hidden border border-white/10 flex items-center justify-center bg-surface-hover group-hover:border-accent-purple/60 transition-colors">
-                      <div className={`w-20 h-20 rounded-full bg-gradient-to-br ${avatarGradient} flex items-center justify-center text-white text-xl font-bold font-sans shadow-lg group-hover:scale-105 transition-transform duration-300`}>
-                        {initials}
-                      </div>
+                      {member.image ? (
+                        <img
+                          src={member.image}
+                          alt={member.name}
+                          className="w-20 h-20 rounded-full object-cover shadow-lg group-hover:scale-105 transition-transform duration-300 border-2 border-white/10"
+                        />
+                      ) : (
+                        <div className={`w-20 h-20 rounded-full bg-gradient-to-br ${avatarGradient} flex items-center justify-center text-white text-xl font-bold font-sans shadow-lg group-hover:scale-105 transition-transform duration-300`}>
+                          {initials}
+                        </div>
+                      )}
 
                       {/* Floating Category Pill */}
                       <Pill variant="eyebrow" className="absolute bottom-2 text-[8px] py-0.5 px-2 bg-surface/90">

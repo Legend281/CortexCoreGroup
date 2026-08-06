@@ -68,9 +68,17 @@ export const TeamMemberDrawer: React.FC<TeamMemberDrawerProps> = ({
 
               {/* Avatar + Member Identity */}
               <div className="flex items-center gap-5 mb-6">
-                <div className="w-20 h-20 rounded-2xl bg-gradient-accent flex items-center justify-center text-white text-2xl font-bold shadow-glow-purple shrink-0">
-                  {getInitials(member.name)}
-                </div>
+                {member.image ? (
+                  <img
+                    src={member.image}
+                    alt={member.name}
+                    className="w-20 h-20 rounded-2xl object-cover shadow-glow-purple shrink-0 border border-white/10"
+                  />
+                ) : (
+                  <div className="w-20 h-20 rounded-2xl bg-gradient-accent flex items-center justify-center text-white text-2xl font-bold shadow-glow-purple shrink-0">
+                    {getInitials(member.name)}
+                  </div>
+                )}
                 <div>
                   <h3 className="text-2xl font-bold text-white">{member.name}</h3>
                   <p className="text-sm font-semibold text-accent-purple mt-0.5">{member.role}</p>
