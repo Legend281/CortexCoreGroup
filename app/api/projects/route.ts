@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import type { Project } from "@prisma/client"; // 1. Import the generated Prisma type
 
 export async function GET() {
   try {
@@ -7,8 +8,8 @@ export async function GET() {
       orderBy: { number: "asc" },
     });
 
-    // Normalize flat DB testimonial fields into the nested shape the UI expects
-    const projects = rawProjects.map((project: any) => ({
+    // 2. Type 'project' as 'Project'
+    const projects = rawProjects.map((project: Project) => ({
       id: project.id,
       number: project.number,
       category: project.category,
@@ -19,14 +20,13 @@ export async function GET() {
       techStack: project.techStack,
       likeCount: project.likeCount,
       rating: project.rating,
-      testimonial:
-        project.testimonialQuote
-          ? {
-              quote: project.testimonialQuote,
-              author: project.testimonialAuthor || "",
-              role: project.testimonialRole || "",
-            }
-          : undefined,
+      testimonial: project.testimonialQuote
+        ? {
+          quote: project.testimonialQuote,
+          author: project.testimonialAuthor || "",
+          role: project.testimonialRole || "",
+        }
+        : undefined,
       link: project.link,
     }));
 
