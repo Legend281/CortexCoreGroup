@@ -7,7 +7,12 @@ export function middleware(request: NextRequest) {
 
   // Extract clean host without port
   const currentHost = hostname.split(":")[0].toLowerCase();
-  const isAdminSubdomain = currentHost.startsWith("admin.");
+  
+  // Support both cms.cortexcoregroup.com and admin.cortexcoregroup.com
+  const isAdminSubdomain =
+    currentHost.startsWith("cms.") ||
+    currentHost.startsWith("admin.");
+
   const isLocalhost = currentHost === "localhost" || currentHost === "127.0.0.1";
 
   // Prevent rewriting for static assets and Next internal files
@@ -21,7 +26,7 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // 1. If accessed via admin.cortexcoregroup.com (or admin.localhost)
+  // 1. If accessed via cms.cortexcoregroup.com (or admin.cortexcoregroup.com)
   if (isAdminSubdomain) {
     // If requesting API routes, pass through directly
     if (url.pathname.startsWith("/api")) {
@@ -34,10 +39,10 @@ export function middleware(request: NextRequest) {
     }
 
     // Otherwise, rewrite root or subpaths cleanly to /admin/*
-    // e.g. admin.cortexcoregroup.com/ -> /admin
-    // admin.cortexcoregroup.com/services -> /admin/services
-    // admin.cortexcoregroup.com/login -> /admin/login
-    // admin.cortexcoregroup.com/messages -> /admin/messages
+    // e.g. cms.cortexcoregroup.com/ -> /admin
+    // cms.cortexcoregroup.com/services -> /admin/services
+    // cms.cortexcoregroup.com/login -> /admin/login
+    // cms.cortexcoregroup.com/messages -> /admin/messages
     const rewrittenPath = url.pathname === "/" ? "/admin" : `/admin${url.pathname}`;
     return NextResponse.rewrite(new URL(rewrittenPath, request.url));
   }
