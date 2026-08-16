@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
-import { CookieConsent } from "@/components/ui/CookieConsent";
+import { PublicOrAdminShell } from "@/components/layout/PublicOrAdminShell";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -43,6 +41,17 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+  icons: {
+    icon: [
+      { url: "/images/brand/favicon.png", type: "image/png" },
+      { url: "/favicon.png", type: "image/png" },
+      { url: "/icon.png", type: "image/png" },
+    ],
+    shortcut: ["/images/brand/favicon.png"],
+    apple: [
+      { url: "/images/brand/favicon.png", sizes: "180x180", type: "image/png" },
+    ],
+  },
 };
 
 export default function RootLayout({
@@ -53,11 +62,9 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} dark`}>
       <body className="bg-background text-white font-sans antialiased min-h-screen flex flex-col selection:bg-accent-purple/30 selection:text-white">
-        <Header />
-        <main className="flex-grow pt-20">{children}</main>
-        <Footer />
-        <CookieConsent />
+        <PublicOrAdminShell>{children}</PublicOrAdminShell>
       </body>
     </html>
   );
 }
+

@@ -8,9 +8,7 @@ import * as z from "zod";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { SpotlightCard } from "@/components/ui/SpotlightCard";
 import { Button } from "@/components/ui/Button";
-import { Pill } from "@/components/ui/Pill";
-import { CheckCircle2, AlertCircle, Send, Sparkles, ShieldCheck, Clock } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { CheckCircle2, AlertCircle, Clock, Sparkles } from "lucide-react";
 
 const contactFormSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -107,7 +105,7 @@ export const ContactFormSection: React.FC = () => {
   };
 
   return (
-    <section id="inquiry-form" className="py-24 relative bg-[#070712] border-t border-white/5">
+    <section id="inquiry-form" className="py-16 sm:py-24 relative bg-[#070712] border-t border-white/5">
       <div className="max-w-5xl mx-auto px-4 sm:px-8">
         <SectionHeader
           eyebrow="INQUIRY FORM"
@@ -117,18 +115,18 @@ export const ContactFormSection: React.FC = () => {
           align="center"
         />
 
-        <SpotlightCard className="p-8 sm:p-12 bg-surface/50 backdrop-blur-xl border border-white/10 rounded-3xl shadow-2xl">
+        <SpotlightCard className="p-5 sm:p-12 bg-surface/50 backdrop-blur-xl border border-white/10 rounded-3xl shadow-2xl">
           {status === "success" ? (
-            <div className="py-12 text-center flex flex-col items-center">
-              <div className="w-16 h-16 rounded-2xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 flex items-center justify-center mb-6 shadow-glow-purple">
-                <CheckCircle2 className="w-8 h-8" />
+            <div className="py-8 sm:py-12 text-center flex flex-col items-center">
+              <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 flex items-center justify-center mb-4 sm:mb-6 shadow-glow-purple">
+                <CheckCircle2 className="w-7 h-7 sm:w-8 sm:h-8" />
               </div>
-              <h3 className="text-3xl font-bold text-white mb-2">Inquiry Submitted!</h3>
-              <p className="text-sm text-text-secondary max-w-md leading-relaxed mb-6">
+              <h3 className="text-2xl sm:text-3xl font-bold text-white mb-2">Inquiry Submitted!</h3>
+              <p className="text-xs sm:text-sm text-text-secondary max-w-md leading-relaxed mb-6">
                 Thank you for reaching out to Cortex Core Group. Our principal technical leads have received your scope parameters and will respond within 12 hours.
               </p>
-              <div className="p-4 rounded-2xl bg-surface/80 border border-white/10 text-xs font-mono text-emerald-400 mb-6 flex items-center gap-2">
-                <Clock className="w-4 h-4" />
+              <div className="p-3 sm:p-4 rounded-2xl bg-surface/80 border border-white/10 text-xs font-mono text-emerald-400 mb-6 flex items-center gap-2">
+                <Clock className="w-4 h-4 shrink-0" />
                 <span>Ticket Created // Lead Engineer Assigned</span>
               </div>
               <Button variant="secondary" onClick={() => setStatus("idle")}>
@@ -136,7 +134,7 @@ export const ContactFormSection: React.FC = () => {
               </Button>
             </div>
           ) : (
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-5 sm:space-y-8">
               {/* Honeypot hidden input */}
               <input
                 type="text"
@@ -147,23 +145,23 @@ export const ContactFormSection: React.FC = () => {
               />
 
               {status === "error" && (
-                <div className="p-4 bg-rose-500/10 border border-rose-500/30 rounded-xl flex items-center gap-3 text-rose-400 text-sm">
-                  <AlertCircle className="w-5 h-5 shrink-0" />
+                <div className="p-3.5 sm:p-4 bg-rose-500/10 border border-rose-500/30 rounded-xl flex items-center gap-3 text-rose-400 text-xs sm:text-sm">
+                  <AlertCircle className="w-4 h-4 sm:w-5 sm:h-5 shrink-0" />
                   <span>{errorMessage}</span>
                 </div>
               )}
 
               {/* Row 1: Name & Email */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                 <div>
-                  <label className="block text-xs font-mono font-bold text-accent-purple uppercase tracking-wider mb-2">
+                  <label className="block text-[11px] font-mono font-bold text-accent-purple uppercase tracking-wider mb-2">
                     Your Name *
                   </label>
                   <input
                     type="text"
-                    placeholder="e.g. Sarah Jenkins"
+                    placeholder="e.g. Randy Ojong"
                     {...register("name")}
-                    className="w-full bg-[#050714] border border-white/15 rounded-2xl px-4 py-3.5 text-base sm:text-sm text-white placeholder-text-secondary focus:outline-none focus:border-accent-purple transition-all"
+                    className="w-full bg-[#050714] border border-white/15 rounded-2xl px-4 py-3 sm:py-3.5 text-base sm:text-sm text-white placeholder-text-secondary focus:outline-none focus:border-accent-purple transition-all"
                   />
                   {errors.name && (
                     <p className="text-xs text-rose-400 mt-1">{errors.name.message}</p>
@@ -171,14 +169,14 @@ export const ContactFormSection: React.FC = () => {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-mono font-bold text-accent-purple uppercase tracking-wider mb-2">
+                  <label className="block text-[11px] font-mono font-bold text-accent-purple uppercase tracking-wider mb-2">
                     Work Email Address *
                   </label>
                   <input
                     type="email"
-                    placeholder="sarah@company.com"
+                    placeholder="randy@company.com"
                     {...register("email")}
-                    className="w-full bg-[#050714] border border-white/15 rounded-2xl px-4 py-3.5 text-base sm:text-sm text-white placeholder-text-secondary focus:outline-none focus:border-accent-purple transition-all"
+                    className="w-full bg-[#050714] border border-white/15 rounded-2xl px-4 py-3 sm:py-3.5 text-base sm:text-sm text-white placeholder-text-secondary focus:outline-none focus:border-accent-purple transition-all"
                   />
                   {errors.email && (
                     <p className="text-xs text-rose-400 mt-1">{errors.email.message}</p>
@@ -187,26 +185,26 @@ export const ContactFormSection: React.FC = () => {
               </div>
 
               {/* Row 2: Company & Service */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                 <div>
-                  <label className="block text-xs font-mono font-bold text-accent-purple uppercase tracking-wider mb-2">
+                  <label className="block text-[11px] font-mono font-bold text-accent-purple uppercase tracking-wider mb-2">
                     Company / Organization
                   </label>
                   <input
                     type="text"
                     placeholder="e.g. Apex Global SaaS"
                     {...register("company")}
-                    className="w-full bg-[#050714] border border-white/15 rounded-2xl px-4 py-3.5 text-base sm:text-sm text-white placeholder-text-secondary focus:outline-none focus:border-accent-purple transition-all"
+                    className="w-full bg-[#050714] border border-white/15 rounded-2xl px-4 py-3 sm:py-3.5 text-base sm:text-sm text-white placeholder-text-secondary focus:outline-none focus:border-accent-purple transition-all"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-mono font-bold text-accent-purple uppercase tracking-wider mb-2">
+                  <label className="block text-[11px] font-mono font-bold text-accent-purple uppercase tracking-wider mb-2">
                     Service Capability Needed *
                   </label>
                   <select
                     {...register("service")}
-                    className="w-full bg-[#050714] border border-white/15 rounded-2xl px-4 py-3.5 text-sm text-white focus:outline-none focus:border-accent-purple transition-all"
+                    className="w-full bg-[#050714] border border-white/15 rounded-2xl px-4 py-3 sm:py-3.5 text-base sm:text-sm text-white focus:outline-none focus:border-accent-purple transition-all"
                   >
                     {SERVICES.map((s) => (
                       <option key={s} value={s} className="bg-[#050714] text-white">
@@ -219,10 +217,10 @@ export const ContactFormSection: React.FC = () => {
 
               {/* Row 3: Estimated Budget Range Selection Pills */}
               <div>
-                <label className="block text-xs font-mono font-bold text-accent-purple uppercase tracking-wider mb-3">
+                <label className="block text-[11px] font-mono font-bold text-accent-purple uppercase tracking-wider mb-2.5">
                   Estimated Budget Range
                 </label>
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3">
                   {BUDGETS.map((b) => {
                     const isSel = selectedBudget === b;
                     return (
@@ -230,7 +228,7 @@ export const ContactFormSection: React.FC = () => {
                         type="button"
                         key={b}
                         onClick={() => setSelectedBudget(b)}
-                        className={`p-3 rounded-2xl border text-xs font-mono font-semibold text-center transition-all ${
+                        className={`p-2.5 sm:p-3 rounded-2xl border text-xs font-mono font-semibold text-center transition-all active:scale-95 ${
                           isSel
                             ? "bg-accent-purple/20 border-accent-purple text-white shadow-glow-purple"
                             : "bg-[#050714] border-white/10 text-text-secondary hover:border-white/20 hover:text-white"
@@ -245,14 +243,14 @@ export const ContactFormSection: React.FC = () => {
 
               {/* Row 4: Project Message */}
               <div>
-                <label className="block text-xs font-mono font-bold text-accent-purple uppercase tracking-wider mb-2">
+                <label className="block text-[11px] font-mono font-bold text-accent-purple uppercase tracking-wider mb-2">
                   Project Scope & Timeline Details *
                 </label>
                 <textarea
-                  rows={5}
+                  rows={4}
                   placeholder="Tell us about your product goals, technical stack preferences, desired launch date, and key features..."
                   {...register("message")}
-                  className="w-full bg-[#050714] border border-white/15 rounded-2xl px-4 py-3.5 text-sm text-white placeholder-text-secondary focus:outline-none focus:border-accent-purple transition-all resize-none"
+                  className="w-full bg-[#050714] border border-white/15 rounded-2xl px-4 py-3 text-base sm:text-sm text-white placeholder-text-secondary focus:outline-none focus:border-accent-purple transition-all resize-none"
                 />
                 {errors.message && (
                   <p className="text-xs text-rose-400 mt-1">{errors.message.message}</p>
@@ -261,12 +259,12 @@ export const ContactFormSection: React.FC = () => {
 
               {/* Row 5: GDPR Privacy Checkbox */}
               <div className="flex flex-col gap-1.5">
-                <div className="flex items-start gap-3">
+                <div className="flex items-start gap-2.5">
                   <input
                     type="checkbox"
                     id="gdpr"
                     {...register("gdprConsent")}
-                    className="mt-1 accent-accent-purple w-4 h-4 rounded cursor-pointer"
+                    className="mt-1 accent-accent-purple w-4 h-4 rounded cursor-pointer shrink-0"
                   />
                   <label htmlFor="gdpr" className="text-xs text-text-secondary cursor-pointer leading-relaxed">
                     I agree to the processing of my personal data according to Cortex&apos;s{" "}
@@ -286,9 +284,10 @@ export const ContactFormSection: React.FC = () => {
                 variant="primary"
                 size="lg"
                 disabled={status === "submitting"}
-                className="w-full shadow-glow-purple"
+                className="w-full shadow-glow-purple min-h-[48px] text-xs sm:text-sm font-bold active:scale-95"
               >
-                {status === "submitting" ? "Submitting Scope..." : "Submit Project Scope"}
+                <Sparkles className="w-4 h-4 mr-1.5 shrink-0 text-accent-cyan" />
+                <span>{status === "submitting" ? "Submitting Scope..." : "Submit Project Scope"}</span>
               </Button>
             </form>
           )}

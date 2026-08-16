@@ -5,7 +5,7 @@ import Link from "next/link";
 import { ProjectItem } from "@/data/projects";
 import { Button } from "@/components/ui/Button";
 import { Pill } from "@/components/ui/Pill";
-import { X, CheckCircle2, Heart, Star, ExternalLink, ShieldCheck, Cpu, Zap, Layers, Award } from "lucide-react";
+import { X, CheckCircle2, Heart, Star, Award, Sparkles } from "lucide-react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 
 export interface ProjectDetailDrawerProps {
@@ -29,7 +29,7 @@ export const ProjectDetailDrawer: React.FC<ProjectDetailDrawerProps> = ({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-black/75 backdrop-blur-sm z-50 transition-opacity"
+            className="fixed inset-0 bg-black/80 backdrop-blur-md z-50 transition-opacity"
           />
 
           {/* Glassmorphism Slide-Over Panel / Mobile Bottom Sheet */}
@@ -37,16 +37,17 @@ export const ProjectDetailDrawer: React.FC<ProjectDetailDrawerProps> = ({
             initial={{ y: shouldReduceMotion ? 0 : "100%" }}
             animate={{ y: 0 }}
             exit={{ y: shouldReduceMotion ? 0 : "100%" }}
-            transition={{ type: "spring", damping: 26, stiffness: 220 }}
-            className="fixed bottom-0 right-0 left-0 sm:left-auto sm:top-0 sm:bottom-0 w-full sm:max-w-xl max-h-[90vh] sm:max-h-full bg-[#090B16]/98 backdrop-blur-2xl border-t sm:border-t-0 sm:border-l border-white/10 rounded-t-3xl sm:rounded-none p-6 sm:p-10 z-50 overflow-y-auto flex flex-col justify-between shadow-2xl"
+            transition={{ type: "spring", damping: 28, stiffness: 240 }}
+            className="fixed bottom-0 right-0 left-0 sm:left-auto sm:top-0 sm:bottom-0 w-full sm:max-w-xl max-h-[88vh] sm:max-h-full bg-[#090B16]/98 backdrop-blur-2xl border-t sm:border-t-0 sm:border-l border-white/15 rounded-t-[28px] sm:rounded-none z-50 flex flex-col justify-between shadow-2xl overflow-hidden"
           >
-            <div>
-              {/* Mobile Swipe Handle Pill */}
-              <div className="w-12 h-1.5 bg-white/20 rounded-full mx-auto mb-6 sm:hidden" />
+            {/* Scrollable Content Container */}
+            <div className="p-5 sm:p-10 overflow-y-auto flex-1">
+              {/* Mobile Drag Indicator */}
+              <div className="w-12 h-1.5 bg-white/20 rounded-full mx-auto mb-4 sm:hidden" />
 
-              {/* Header: Close Button & Category Pill */}
-              <div className="flex items-center justify-between mb-8 pb-4 border-b border-white/10">
-                <div className="flex items-center gap-3">
+              {/* Header: Number, Category & Close Button */}
+              <div className="flex items-center justify-between mb-6 pb-3.5 border-b border-white/10">
+                <div className="flex items-center gap-2.5">
                   <span className="text-xs font-mono font-bold text-accent-purple">
                     {project.number}
                   </span>
@@ -56,40 +57,40 @@ export const ProjectDetailDrawer: React.FC<ProjectDetailDrawerProps> = ({
                 </div>
                 <button
                   onClick={onClose}
-                  className="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-text-secondary hover:text-white hover:bg-white/10 active:scale-95 transition-all"
+                  className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-text-secondary hover:text-white hover:bg-white/10 active:scale-95 transition-all"
                   aria-label="Close drawer"
                 >
-                  <X className="w-5 h-5" />
+                  <X className="w-4 h-4 sm:w-5 sm:h-5" />
                 </button>
               </div>
 
               {/* Title & Stats */}
-              <div className="flex items-start justify-between gap-4 mb-4">
-                <h2 className="text-2xl sm:text-3xl font-bold text-white">
+              <div className="flex items-start justify-between gap-4 mb-3">
+                <h2 className="text-xl sm:text-3xl font-bold text-white">
                   {project.title}
                 </h2>
                 <div className="flex items-center gap-2 text-xs font-mono shrink-0 pt-1">
                   <span className="flex items-center gap-1 text-rose-400 font-bold">
-                    <Heart className="w-4 h-4 fill-rose-400" /> {project.likeCount}
+                    <Heart className="w-3.5 h-3.5 fill-rose-400" /> {project.likeCount}
                   </span>
-                  <span className="flex items-center gap-0.5 text-amber-400 font-bold ml-2">
-                    <Star className="w-4 h-4 fill-amber-400" /> {project.rating}.0
+                  <span className="flex items-center gap-0.5 text-amber-400 font-bold ml-1">
+                    <Star className="w-3.5 h-3.5 fill-amber-400" /> {project.rating}.0
                   </span>
                 </div>
               </div>
 
-              <p className="text-sm sm:text-base text-text-secondary leading-relaxed mb-8">
+              <p className="text-xs sm:text-base text-text-secondary leading-relaxed mb-6">
                 {project.description}
               </p>
 
               {/* Tech Stack Pills */}
-              <div className="mb-8">
-                <h4 className="text-xs font-mono font-bold text-text-secondary uppercase tracking-wider mb-3">
+              <div className="mb-6">
+                <h4 className="text-[11px] font-mono font-bold text-text-secondary uppercase tracking-wider mb-2.5">
                   System Architecture & Stack
                 </h4>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-1.5 sm:gap-2">
                   {project.techStack.map((tech) => (
-                    <Pill key={tech} variant="tag">
+                    <Pill key={tech} variant="tag" className="text-xs">
                       {tech}
                     </Pill>
                   ))}
@@ -97,21 +98,21 @@ export const ProjectDetailDrawer: React.FC<ProjectDetailDrawerProps> = ({
               </div>
 
               {/* Architectural Benchmarks */}
-              <div className="bg-[#050712] border border-white/10 rounded-2xl p-5 mb-8">
-                <h4 className="text-xs font-mono font-bold text-text-secondary uppercase tracking-wider mb-4 flex items-center gap-2">
+              <div className="bg-[#050712] border border-white/10 rounded-2xl p-4 sm:p-5 mb-6">
+                <h4 className="text-xs font-mono font-bold text-text-secondary uppercase tracking-wider mb-3.5 flex items-center gap-2">
                   <Award className="w-4 h-4 text-accent-cyan" />
                   <span>Engineering Highlights & Impact</span>
                 </h4>
-                <ul className="space-y-3">
-                  <li className="flex items-center gap-3 text-xs sm:text-sm text-white font-medium">
+                <ul className="space-y-2.5">
+                  <li className="flex items-center gap-2.5 text-xs sm:text-sm text-white font-medium">
                     <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
                     <span>Sub-15ms Edge API Latency SLA</span>
                   </li>
-                  <li className="flex items-center gap-3 text-xs sm:text-sm text-white font-medium">
+                  <li className="flex items-center gap-2.5 text-xs sm:text-sm text-white font-medium">
                     <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
                     <span>100% Type-Safe Architecture with Automated CI/CD</span>
                   </li>
-                  <li className="flex items-center gap-3 text-xs sm:text-sm text-white font-medium">
+                  <li className="flex items-center gap-2.5 text-xs sm:text-sm text-white font-medium">
                     <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
                     <span>SOC2 & HIPAA Compliant Security Infrastructure</span>
                   </li>
@@ -120,8 +121,8 @@ export const ProjectDetailDrawer: React.FC<ProjectDetailDrawerProps> = ({
 
               {/* Testimonial Quote */}
               {project.testimonial && (
-                <div className="p-5 rounded-2xl bg-surface/50 border border-white/10 mb-8">
-                  <p className="text-xs sm:text-sm text-text-secondary italic mb-3">
+                <div className="p-4 sm:p-5 rounded-2xl bg-surface/50 border border-white/10 mb-4">
+                  <p className="text-xs sm:text-sm text-text-secondary italic mb-2.5">
                     &ldquo;{project.testimonial.quote}&rdquo;
                   </p>
                   <span className="text-xs font-semibold text-white block">
@@ -131,14 +132,15 @@ export const ProjectDetailDrawer: React.FC<ProjectDetailDrawerProps> = ({
               )}
             </div>
 
-            {/* Bottom Actions */}
-            <div className="pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center gap-4">
-              <Link href={`/contact?project=${project.id}`} className="w-full sm:w-auto flex-1" onClick={onClose}>
-                <Button variant="primary" size="lg" showArrow className="w-full shadow-glow-purple min-h-[48px]">
-                  Request System Like This
+            {/* Bottom Sticky Action Footer */}
+            <div className="p-4 sm:p-6 bg-[#060813] border-t border-white/10 flex flex-col sm:flex-row items-center gap-2.5 sm:gap-4 shrink-0">
+              <Link href={`/contact?project=${project.id}`} className="w-full sm:flex-1" onClick={onClose}>
+                <Button variant="primary" size="lg" showArrow className="w-full shadow-glow-purple min-h-[48px] text-xs sm:text-sm font-bold active:scale-95">
+                  <Sparkles className="w-3.5 h-3.5 mr-1.5 shrink-0 text-accent-cyan" />
+                  <span>Request System Like This</span>
                 </Button>
               </Link>
-              <Button variant="secondary" size="lg" onClick={onClose} className="w-full sm:w-auto min-h-[48px]">
+              <Button variant="secondary" size="lg" onClick={onClose} className="w-full sm:w-auto min-h-[44px] sm:min-h-[48px] text-xs sm:text-sm">
                 Close Case Study
               </Button>
             </div>

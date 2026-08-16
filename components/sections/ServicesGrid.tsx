@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { SERVICES, ServiceItem } from "@/data/services";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { SpotlightCard } from "@/components/ui/SpotlightCard";
@@ -172,6 +173,20 @@ export const ServicesGrid: React.FC<ServicesGridProps> = ({ services }) => {
                   onClick={() => setSelectedService(service)}
                 >
                   <div>
+                    {/* Optional Custom Graphic Banner */}
+                    {service.image && (
+                      <div className="relative aspect-video w-full rounded-2xl overflow-hidden border border-white/10 mb-6 bg-[#050714]">
+                        <Image
+                          src={service.image}
+                          alt={service.title}
+                          fill
+                          sizes="(max-width: 768px) 100vw, 400px"
+                          className="object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#0A0D1B]/80 via-transparent to-transparent opacity-40" />
+                      </div>
+                    )}
+
                     <div className="flex items-center justify-between mb-6">
                       <div className="flex items-center gap-3">
                         <div className={`w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300 group-hover:scale-105 ${iconStyle}`}>

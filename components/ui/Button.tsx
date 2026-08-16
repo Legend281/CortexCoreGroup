@@ -48,9 +48,9 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
         {...props}
       >
-        <span>{children}</span>
+        {children}
         {showArrow && (
-          <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
+          <ArrowRight className="w-4 h-4 shrink-0 transition-transform duration-200 group-hover:translate-x-1" />
         )}
       </button>
     );

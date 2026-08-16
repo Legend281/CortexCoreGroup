@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { TEAM_MEMBERS, TeamMember } from "@/data/team";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { SpotlightCard } from "@/components/ui/SpotlightCard";
@@ -110,24 +111,28 @@ export const TeamStrip: React.FC<TeamStripProps> = ({
                   className="p-5 text-center group flex flex-col items-center bg-surface/40 backdrop-blur-md border border-white/10 hover:border-accent-purple/50 hover:-translate-y-1.5 transition-all duration-300 h-full justify-between"
                 >
                   <div className="flex flex-col items-center w-full">
-                    {/* Image or Gradient Initial Avatar Badge */}
-                    <div className="relative w-full aspect-square rounded-2xl mb-4 overflow-hidden border border-white/10 flex items-center justify-center bg-surface-hover group-hover:border-accent-purple/60 transition-colors">
+                    {/* Large Portrait Image Frame */}
+                    <div className="relative w-full aspect-[4/5] rounded-2xl mb-4 overflow-hidden border border-white/10 bg-[#090B16] group-hover:border-accent-purple/60 transition-all duration-300">
                       {member.image ? (
-                        <img
+                        <Image
                           src={member.image}
                           alt={member.name}
-                          className="w-20 h-20 rounded-full object-cover shadow-lg group-hover:scale-105 transition-transform duration-300 border-2 border-white/10"
+                          fill
+                          sizes="(max-width: 768px) 100vw, 20vw"
+                          className="object-cover object-top group-hover:scale-105 transition-transform duration-500"
                         />
                       ) : (
-                        <div className={`w-20 h-20 rounded-full bg-gradient-to-br ${avatarGradient} flex items-center justify-center text-white text-xl font-bold font-sans shadow-lg group-hover:scale-105 transition-transform duration-300`}>
+                        <div className={`w-full h-full bg-gradient-to-br ${avatarGradient} flex items-center justify-center text-white text-3xl font-bold font-sans`}>
                           {initials}
                         </div>
                       )}
 
                       {/* Floating Category Pill */}
-                      <Pill variant="eyebrow" className="absolute bottom-2 text-[8px] py-0.5 px-2 bg-surface/90">
-                        {member.category}
-                      </Pill>
+                      <div className="absolute top-2 left-2">
+                        <Pill variant="eyebrow" className="text-[8px] py-0.5 px-2 bg-black/70 backdrop-blur-md border-white/20">
+                          {member.category}
+                        </Pill>
+                      </div>
                     </div>
 
                     <h4 className="text-base font-bold text-white group-hover:text-accent-purple transition-colors">

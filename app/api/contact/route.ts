@@ -9,6 +9,7 @@ const contactSchema = z.object({
   email: z.string().email("Invalid email address"),
   company: z.string().optional().nullable(),
   service: z.string().min(1, "Please select a service"),
+  budget: z.string().optional().nullable(),
   message: z.string().min(10, "Message must be at least 10 characters"),
   gdprConsent: z.boolean().refine((val) => val === true, {
     message: "You must accept the privacy policy terms",
@@ -48,6 +49,7 @@ export async function POST(request: Request) {
         email: data.email,
         company: data.company || null,
         service: data.service,
+        budget: data.budget || null,
         message: data.message,
       },
     });
@@ -66,6 +68,7 @@ export async function POST(request: Request) {
             <p><strong>Email:</strong> ${data.email}</p>
             <p><strong>Company:</strong> ${data.company || "N/A"}</p>
             <p><strong>Service Needed:</strong> ${data.service}</p>
+            <p><strong>Estimated Budget:</strong> ${data.budget || "Not Specified"}</p>
             <p><strong>Message:</strong></p>
             <p>${data.message.replace(/\n/g, "<br>")}</p>
           `,
