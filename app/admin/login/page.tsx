@@ -101,6 +101,7 @@ export default function AdminLoginPage() {
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Enter root passcode..."
                   required
+                  autoComplete="current-password"
                   className="w-full bg-[#050714] border border-white/15 rounded-2xl pl-10 pr-12 py-3 text-base sm:text-xs text-white placeholder-text-secondary focus:outline-none focus:border-accent-purple transition-all"
                 />
                 <button
