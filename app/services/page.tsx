@@ -6,25 +6,12 @@ import { ServiceEstimator } from "@/components/sections/ServiceEstimator";
 import { ServicesFAQ } from "@/components/sections/ServicesFAQ";
 import { BottomCTA } from "@/components/sections/BottomCTA";
 
-async function getServices() {
-  const baseUrl =
-    process.env.NEXT_PUBLIC_API_URL ||
-    process.env.NEXT_PUBLIC_SITE_URL ||
-    "http://localhost:3000";
-  try {
-    const res = await fetch(`${baseUrl}/api/services`, {
-      next: { revalidate: 60 },
-    });
-    if (!res.ok) return null;
-    return res.json();
-  } catch (error) {
-    console.error("Failed to fetch services catalog:", error);
-    return null;
-  }
-}
+import { dataStore } from "@/lib/data-store";
+
+export const dynamic = "force-dynamic";
 
 export default async function ServicesPage() {
-  const services = await getServices();
+  const services = dataStore.getServices();
 
   return (
     <div className="flex flex-col min-h-screen">

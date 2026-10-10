@@ -94,7 +94,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
     role: "Backend Developer",
     category: "Engineering",
     bio: "High-performance backend engineer specialized in RESTful & GraphQL APIs, distributed database management, and microservice architectures.",
-    image: "/images/team/jason-mbi.jpg",
+    image: "",
     techStack: ["Node.js", "PostgreSQL", "Go", "Redis", "GraphQL"],
     socials: {
       linkedin: "https://linkedin.com",

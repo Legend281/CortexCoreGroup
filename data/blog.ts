@@ -3,6 +3,7 @@ export interface BlogPostItem {
   title: string;
   excerpt: string;
   content?: string;
+  image?: string;
   category: string;
   categoryLabel: string;
   date: string;

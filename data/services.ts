@@ -5,6 +5,7 @@ export interface ServiceItem {
   description: string;
   tags: string[];
   iconName: string;
+  image?: string | null;
 }
 
 export const SERVICES: ServiceItem[] = [

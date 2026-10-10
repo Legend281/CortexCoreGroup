@@ -6,25 +6,12 @@ import { AboutTechMatrix } from "@/components/sections/AboutTechMatrix";
 import { AboutTeam } from "@/components/sections/AboutTeam";
 import { BottomCTA } from "@/components/sections/BottomCTA";
 
-async function getTeamData() {
-  const baseUrl =
-    process.env.NEXT_PUBLIC_API_URL ||
-    process.env.NEXT_PUBLIC_SITE_URL ||
-    "http://localhost:3000";
-  try {
-    const res = await fetch(`${baseUrl}/api/team`, {
-      next: { revalidate: 60 }, // Cache server data for 60 seconds
-    });
-    if (!res.ok) return null;
-    return res.json();
-  } catch (error) {
-    console.error("Failed to fetch team data for About page:", error);
-    return null;
-  }
-}
+import { dataStore } from "@/lib/data-store";
+
+export const dynamic = "force-dynamic";
 
 export default async function AboutPage() {
-  const teamMembers = await getTeamData();
+  const teamMembers = dataStore.getTeam();
 
   return (
     <div className="flex flex-col min-h-screen">

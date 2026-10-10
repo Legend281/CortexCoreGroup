@@ -5,15 +5,14 @@ import Link from "next/link";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { SpotlightCard } from "@/components/ui/SpotlightCard";
 import { Button } from "@/components/ui/Button";
-import { Pill } from "@/components/ui/Pill";
-import { Calculator, ArrowRight, CheckCircle2, Cpu, Code2, Smartphone, Cloud, Users, Clock } from "lucide-react";
-import { motion, useReducedMotion } from "framer-motion";
+import { Calculator, Users, Cpu, Code2, Smartphone, Cloud, Sparkles } from "lucide-react";
+import { useReducedMotion } from "framer-motion";
 
 const CATEGORIES = [
   { id: "web", name: "Web App / SaaS", icon: Code2, baseSprints: 4 },
-  { id: "ai", name: "AI & LLM Integration", icon: Cpu, baseSprints: 3 },
+  { id: "ai", name: "AI & LLM Systems", icon: Cpu, baseSprints: 3 },
   { id: "mobile", name: "Mobile Application", icon: Smartphone, baseSprints: 5 },
-  { id: "cloud", name: "Cloud & Migration", icon: Cloud, baseSprints: 2 },
+  { id: "cloud", name: "Cloud Architecture", icon: Cloud, baseSprints: 2 },
 ];
 
 const SCALES = [
@@ -25,7 +24,7 @@ const SCALES = [
 const TIMELINES = [
   { id: "fast", name: "Expedited (4-6 Wks)", factor: 0.8 },
   { id: "standard", name: "Standard (8-12 Wks)", factor: 1 },
-  { id: "ongoing", name: "Ongoing Partnership", factor: 1.5 },
+  { id: "ongoing", name: "Ongoing Growth", factor: 1.5 },
 ];
 
 export const ServiceEstimator: React.FC = () => {
@@ -42,7 +41,7 @@ export const ServiceEstimator: React.FC = () => {
   const estimatedWeeks = estimatedSprints * 2;
 
   return (
-    <section id="scope-estimator" className="py-24 relative bg-[#070712] border-t border-white/5">
+    <section id="scope-estimator" className="py-16 sm:py-24 relative bg-[#070712] border-t border-white/5">
       <div className="max-w-7xl mx-auto px-4 sm:px-8">
         <SectionHeader
           eyebrow="LIVE ESTIMATOR WIDGET"
@@ -52,16 +51,16 @@ export const ServiceEstimator: React.FC = () => {
           align="center"
         />
 
-        <SpotlightCard className="p-8 sm:p-12 bg-surface/50 backdrop-blur-xl border border-white/10 rounded-3xl shadow-2xl">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+        <SpotlightCard className="p-5 sm:p-12 bg-surface/50 backdrop-blur-xl border border-white/10 rounded-3xl shadow-2xl">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-10 items-center">
             {/* Left Column: 3-Step Selection Controls */}
-            <div className="lg:col-span-7 space-y-8">
+            <div className="lg:col-span-7 space-y-6 sm:space-y-8">
               {/* Step 1: Category */}
               <div>
-                <label className="text-xs font-mono font-bold text-accent-purple uppercase tracking-wider block mb-3">
+                <label className="text-[11px] font-mono font-bold text-accent-purple uppercase tracking-wider block mb-2.5">
                   Step 1 — Service Category
                 </label>
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-2 gap-2 sm:gap-3">
                   {CATEGORIES.map((c) => {
                     const IconComp = c.icon;
                     const isSel = c.id === catId;
@@ -69,14 +68,14 @@ export const ServiceEstimator: React.FC = () => {
                       <button
                         key={c.id}
                         onClick={() => setCatId(c.id)}
-                        className={`flex items-center gap-2.5 p-3 rounded-2xl border text-xs font-semibold transition-all ${
+                        className={`flex items-center gap-2 sm:gap-2.5 p-2.5 sm:p-3 rounded-2xl border text-xs font-semibold transition-all active:scale-95 text-left ${
                           isSel
                             ? "bg-accent-purple/20 border-accent-purple text-white shadow-glow-purple"
                             : "bg-[#060814] border-white/10 text-text-secondary hover:border-white/20 hover:text-white"
                         }`}
                       >
-                        <IconComp className={`w-4 h-4 ${isSel ? "text-accent-cyan" : "text-accent-purple"}`} />
-                        <span>{c.name}</span>
+                        <IconComp className={`w-4 h-4 shrink-0 ${isSel ? "text-accent-cyan" : "text-accent-purple"}`} />
+                        <span className="truncate">{c.name}</span>
                       </button>
                     );
                   })}
@@ -85,17 +84,17 @@ export const ServiceEstimator: React.FC = () => {
 
               {/* Step 2: Scale */}
               <div>
-                <label className="text-xs font-mono font-bold text-accent-purple uppercase tracking-wider block mb-3">
+                <label className="text-[11px] font-mono font-bold text-accent-purple uppercase tracking-wider block mb-2.5">
                   Step 2 — Project Scale
                 </label>
-                <div className="grid grid-cols-3 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3">
                   {SCALES.map((s) => {
                     const isSel = s.id === scaleId;
                     return (
                       <button
                         key={s.id}
                         onClick={() => setScaleId(s.id)}
-                        className={`p-3 rounded-2xl border text-xs font-semibold text-center transition-all ${
+                        className={`p-2.5 sm:p-3 rounded-2xl border text-xs font-semibold text-center transition-all active:scale-95 ${
                           isSel
                             ? "bg-accent-purple/20 border-accent-purple text-white shadow-glow-purple"
                             : "bg-[#060814] border-white/10 text-text-secondary hover:border-white/20 hover:text-white"
@@ -110,17 +109,17 @@ export const ServiceEstimator: React.FC = () => {
 
               {/* Step 3: Timeline */}
               <div>
-                <label className="text-xs font-mono font-bold text-accent-purple uppercase tracking-wider block mb-3">
+                <label className="text-[11px] font-mono font-bold text-accent-purple uppercase tracking-wider block mb-2.5">
                   Step 3 — Desired Launch Speed
                 </label>
-                <div className="grid grid-cols-3 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3">
                   {TIMELINES.map((t) => {
                     const isSel = t.id === timelineId;
                     return (
                       <button
                         key={t.id}
                         onClick={() => setTimelineId(t.id)}
-                        className={`p-3 rounded-2xl border text-xs font-semibold text-center transition-all ${
+                        className={`p-2.5 sm:p-3 rounded-2xl border text-xs font-semibold text-center transition-all active:scale-95 ${
                           isSel
                             ? "bg-accent-purple/20 border-accent-purple text-white shadow-glow-purple"
                             : "bg-[#060814] border-white/10 text-text-secondary hover:border-white/20 hover:text-white"
@@ -135,17 +134,17 @@ export const ServiceEstimator: React.FC = () => {
             </div>
 
             {/* Right Column: Dynamic Scope Calculation Summary */}
-            <div className="lg:col-span-5 bg-[#040612] rounded-3xl border border-white/15 p-6 sm:p-8 space-y-6 shadow-2xl">
-              <div className="flex items-center gap-2 pb-4 border-b border-white/10">
+            <div className="lg:col-span-5 bg-[#040612] rounded-3xl border border-white/15 p-5 sm:p-8 space-y-4 sm:space-y-6 shadow-2xl">
+              <div className="flex items-center gap-2 pb-3 sm:pb-4 border-b border-white/10">
                 <Calculator className="w-5 h-5 text-accent-cyan" />
-                <h4 className="text-lg font-bold text-white">Estimated Project Scope</h4>
+                <h4 className="text-base sm:text-lg font-bold text-white">Estimated Project Scope</h4>
               </div>
 
               {/* Stat Boxes */}
-              <div className="grid grid-cols-2 gap-4">
-                <div className="p-4 rounded-2xl bg-surface/60 border border-white/10">
+              <div className="grid grid-cols-2 gap-2.5 sm:gap-4">
+                <div className="p-3 sm:p-4 rounded-2xl bg-surface/60 border border-white/10">
                   <span className="text-[10px] font-mono text-text-secondary block">ESTIMATED VELOCITY</span>
-                  <span className="text-2xl font-mono font-bold text-white block mt-1">
+                  <span className="text-xl sm:text-2xl font-mono font-bold text-white block mt-1">
                     {estimatedSprints} <span className="text-xs text-accent-purple">Sprints</span>
                   </span>
                   <span className="text-[10px] text-emerald-400 font-mono block mt-1">
@@ -153,10 +152,10 @@ export const ServiceEstimator: React.FC = () => {
                   </span>
                 </div>
 
-                <div className="p-4 rounded-2xl bg-surface/60 border border-white/10">
+                <div className="p-3 sm:p-4 rounded-2xl bg-surface/60 border border-white/10">
                   <span className="text-[10px] font-mono text-text-secondary block">CODE SPRINT DEMOS</span>
-                  <span className="text-2xl font-mono font-bold text-accent-cyan block mt-1">
-                    {estimatedSprints} <span className="text-xs text-white">Live Demos</span>
+                  <span className="text-xl sm:text-2xl font-mono font-bold text-accent-cyan block mt-1">
+                    {estimatedSprints} <span className="text-xs text-white">Demos</span>
                   </span>
                   <span className="text-[10px] text-text-secondary font-mono block mt-1">
                     Bi-Weekly Cadence
@@ -165,20 +164,21 @@ export const ServiceEstimator: React.FC = () => {
               </div>
 
               {/* Recommended Team Squad */}
-              <div className="p-4 rounded-2xl bg-surface/60 border border-white/10">
+              <div className="p-3.5 sm:p-4 rounded-2xl bg-surface/60 border border-white/10">
                 <span className="text-[10px] font-mono text-text-secondary uppercase block mb-1">
                   RECOMMENDED SQUAD ALLOCATION
                 </span>
                 <span className="text-xs font-semibold text-white flex items-center gap-2">
                   <Users className="w-4 h-4 text-accent-purple shrink-0" />
-                  {activeScale.team}
+                  <span>{activeScale.team}</span>
                 </span>
               </div>
 
               {/* 1-Click Consultation CTA */}
-              <Link href={`/contact?service=${activeCat.id}&scale=${activeScale.id}`}>
-                <Button variant="primary" size="lg" showArrow className="w-full shadow-glow-purple mt-2">
-                  Book Free Scope Consultation
+              <Link href={`/contact?service=${activeCat.id}&scale=${activeScale.id}`} className="block">
+                <Button variant="primary" size="lg" showArrow className="w-full shadow-glow-purple text-xs sm:text-sm font-bold min-h-[48px] active:scale-95">
+                  <Sparkles className="w-3.5 h-3.5 mr-1.5 shrink-0 text-accent-cyan" />
+                  <span>Book Free Scope Consultation</span>
                 </Button>
               </Link>
             </div>

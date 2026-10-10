@@ -88,8 +88,8 @@ export const BottomCTA: React.FC = () => {
                 size="lg"
                 className="text-base active:scale-95 transition-transform min-w-[260px]"
               >
-                <Mail className="w-4 h-4" />
-                hello@cortexcoregroup.com
+                <Mail className="w-4 h-4 shrink-0 text-accent-cyan" />
+                <span>hello@cortexcoregroup.com</span>
               </Button>
             </a>
           </div>

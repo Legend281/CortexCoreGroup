@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useMemo } from "react";
+import Image from "next/image";
 import { SERVICES, ServiceItem } from "@/data/services";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { SpotlightCard } from "@/components/ui/SpotlightCard";
@@ -98,7 +99,7 @@ export const ServicesCatalog: React.FC<ServicesCatalogProps> = ({ services }) =>
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: shouldReduceMotion ? 0 : 0.05,
+        staggerChildren: shouldReduceMotion ? 0 : 0.04,
       },
     },
   };
@@ -108,23 +109,23 @@ export const ServicesCatalog: React.FC<ServicesCatalogProps> = ({ services }) =>
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.35, ease: [0.23, 1, 0.32, 1] },
+      transition: { duration: 0.3, ease: [0.23, 1, 0.32, 1] },
     },
   };
 
   return (
-    <section id="services-catalog" className="py-24 relative bg-[#070712] border-t border-white/5">
+    <section id="services-catalog" className="py-16 sm:py-24 relative bg-[#070712] border-t border-white/5">
       <div className="max-w-7xl mx-auto px-4 sm:px-8">
         <SectionHeader
           eyebrow="CAPABILITIES CATALOG"
           title="Interactive Services & Specializations"
           gradientWord="Specializations"
-          description="Filter or search our 16 enterprise capabilities. Hover tags to highlight matching technologies across the studio."
+          description="Filter or search our 16 enterprise capabilities. Tap any capability card to inspect deliverables and production blue-prints."
           align="center"
         />
 
         {/* Search Bar + Category Filters */}
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-12">
+        <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3.5 sm:gap-4 mb-8 sm:mb-12">
           {/* Search Input */}
           <div className="relative w-full md:w-80">
             <Search className="w-4 h-4 text-text-secondary absolute left-3.5 top-1/2 -translate-y-1/2" />
@@ -133,19 +134,33 @@ export const ServicesCatalog: React.FC<ServicesCatalogProps> = ({ services }) =>
               placeholder="Search capabilities (e.g. AI, Cloud, React)..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-surface/60 border border-white/10 rounded-full pl-10 pr-4 py-2.5 text-base sm:text-xs text-white placeholder-text-secondary focus:outline-none focus:border-accent-purple transition-all"
+              className="w-full bg-surface/60 border border-white/15 rounded-2xl pl-10 pr-4 py-2.5 text-base sm:text-xs text-white placeholder-text-secondary focus:outline-none focus:border-accent-purple transition-all"
             />
           </div>
 
-          {/* Category Tabs */}
-          <div className="flex items-center gap-2 overflow-x-auto w-full md:w-auto pb-2 md:pb-0 scrollbar-none">
-            {CATEGORIES.map((cat) => (
-              <button key={cat} onClick={() => setActiveCategory(cat)}>
-                <Pill variant="filter" active={activeCategory === cat}>
-                  {cat}
-                </Pill>
-              </button>
-            ))}
+          {/* Category Tabs with Gliding Pill Indicator */}
+          <div className="flex items-center gap-1.5 overflow-x-auto w-full md:w-auto p-1 bg-surface/40 border border-white/10 rounded-2xl pb-1.5 md:pb-1 scrollbar-none">
+            {CATEGORIES.map((cat) => {
+              const isActive = activeCategory === cat;
+              return (
+                <button
+                  key={cat}
+                  onClick={() => setActiveCategory(cat)}
+                  className="relative px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-colors duration-200 shrink-0"
+                >
+                  {isActive && (
+                    <motion.div
+                      layoutId="activeServiceCategoryPill"
+                      className="absolute inset-0 bg-accent-purple/20 border border-accent-purple/50 rounded-xl shadow-glow-purple"
+                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                    />
+                  )}
+                  <span className={`relative z-10 ${isActive ? "text-white font-bold" : "text-text-secondary hover:text-white"}`}>
+                    {cat}
+                  </span>
+                </button>
+              );
+            })}
           </div>
         </div>
 
@@ -156,7 +171,7 @@ export const ServicesCatalog: React.FC<ServicesCatalogProps> = ({ services }) =>
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-50px" }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6"
         >
           {filteredServices.map((service, index) => {
             const IconComp = ICON_MAP[service.iconName] || Code2;
@@ -167,7 +182,7 @@ export const ServicesCatalog: React.FC<ServicesCatalogProps> = ({ services }) =>
             const cardContent = (
               <SpotlightCard
                 onClick={() => setSelectedService(service)}
-                className={`p-8 flex flex-col justify-between group cursor-pointer h-full border transition-all duration-300 ${
+                className={`p-5 sm:p-8 flex flex-col justify-between group cursor-pointer h-full border transition-all duration-300 rounded-3xl ${
                   isTagMatched
                     ? "bg-accent-purple/20 border-accent-purple shadow-glow-purple text-white"
                     : isFeatured
@@ -176,80 +191,102 @@ export const ServicesCatalog: React.FC<ServicesCatalogProps> = ({ services }) =>
                 }`}
               >
                 <div>
-                  {/* Top Row: Icon + Number */}
-                  <div className="flex items-center justify-between mb-6">
-                    <div className="w-12 h-12 rounded-2xl bg-surface/80 border border-white/10 flex items-center justify-center text-white group-hover:scale-105 group-hover:bg-accent-purple/20 transition-all">
-                      <IconComp className="w-6 h-6 text-accent-purple" />
+                  {/* Custom Graphic Banner */}
+                  {service.image && (
+                    <div className="relative aspect-video w-full rounded-2xl overflow-hidden border border-white/10 mb-4 sm:mb-6 bg-[#050714]">
+                      <Image
+                        src={service.image}
+                        alt={service.title}
+                        fill
+                        sizes="(max-width: 768px) 100vw, 400px"
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#080B18] via-transparent to-transparent opacity-60" />
                     </div>
-                    <div className="flex items-center gap-2">
-                      {isFeatured && (
-                        <Pill variant="eyebrow" className="text-[9px] py-0.5 px-2">
-                          FLAGSHIP CAPABILITY
-                        </Pill>
-                      )}
-                      <span className="text-xl font-mono font-bold text-text-secondary">
-                        {service.number}
-                      </span>
+                  )}
+
+                  {/* Top Bar: Number & Icon */}
+                  <div className="flex items-center justify-between mb-4 sm:mb-6">
+                    <span className="text-xs font-mono font-bold text-accent-purple group-hover:text-accent-cyan transition-colors">
+                      {service.number}
+                    </span>
+                    <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-accent-purple group-hover:bg-accent-purple/20 group-hover:text-white group-hover:border-accent-purple/40 transition-all duration-300 shadow-md">
+                      <IconComp className="w-5 h-5 sm:w-5.5 sm:h-5.5" />
                     </div>
                   </div>
 
-                  <h3 className="text-xl sm:text-2xl font-bold text-white mb-3 group-hover:text-accent-purple transition-colors">
+                  {/* Title & Description */}
+                  <h3 className="text-lg sm:text-xl font-bold text-white mb-2 sm:mb-3 group-hover:text-accent-purple transition-colors">
                     {service.title}
                   </h3>
-
-                  <p className="text-sm text-text-secondary leading-relaxed mb-6">
+                  <p className="text-xs sm:text-sm text-text-secondary leading-relaxed mb-4 sm:mb-6">
                     {service.description}
                   </p>
-
-                  {/* Tech Tags with Cross-Service Highlighting */}
-                  <div className="flex flex-wrap gap-2 mb-6">
-                    {service.tags.map((tag) => (
-                      <div
-                        key={tag}
-                        onMouseEnter={(e) => {
-                          e.stopPropagation();
-                          setHoveredTag(tag);
-                        }}
-                        onMouseLeave={(e) => {
-                          e.stopPropagation();
-                          setHoveredTag(null);
-                        }}
-                      >
-                        <Pill
-                          variant="tag"
-                          className={`transition-all ${
-                            hoveredTag === tag ? "bg-accent-purple text-white shadow-glow-purple" : ""
-                          }`}
-                        >
-                          {tag}
-                        </Pill>
-                      </div>
-                    ))}
-                  </div>
                 </div>
 
-                {/* Bottom Action Trigger */}
-                <div className="pt-4 border-t border-white/10 flex items-center justify-between text-xs font-semibold text-accent-purple group-hover:text-white transition-colors">
-                  <span>Inspect Capability & Scope</span>
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                <div>
+                  {/* Tech Tags */}
+                  <div className="flex flex-wrap gap-1.5 mb-4 sm:mb-6">
+                    {service.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        onMouseEnter={() => setHoveredTag(tag)}
+                        onMouseLeave={() => setHoveredTag(null)}
+                        className={`text-[10px] sm:text-[11px] font-mono px-2.5 py-1 rounded-full border transition-all duration-200 ${
+                          hoveredTag === tag
+                            ? "bg-accent-cyan text-[#070714] font-bold border-accent-cyan scale-105 shadow-glow-cyan"
+                            : "bg-surface border-white/10 text-text-secondary hover:text-white hover:border-white/20"
+                        }`}
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* Bottom Action Link */}
+                  <div className="pt-3 sm:pt-4 border-t border-white/10 flex items-center justify-between text-xs font-semibold text-white/80 group-hover:text-accent-cyan transition-colors">
+                    <span>Inspect Capability</span>
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </div>
                 </div>
               </SpotlightCard>
             );
 
             return (
-              <motion.div
-                key={service.id}
-                variants={itemVariants}
-                className={isFeatured ? "md:col-span-2 lg:col-span-2" : ""}
-              >
-                {isFeatured ? <TiltCard maxTilt={6}>{cardContent}</TiltCard> : cardContent}
+              <motion.div key={service.id} variants={itemVariants}>
+                {isFeatured ? (
+                  <TiltCard maxTilt={4} className="h-full">
+                    {cardContent}
+                  </TiltCard>
+                ) : (
+                  cardContent
+                )}
               </motion.div>
             );
           })}
         </motion.div>
+
+        {filteredServices.length === 0 && (
+          <div className="text-center py-16 bg-surface/20 rounded-3xl border border-white/10 max-w-lg mx-auto">
+            <Sparkles className="w-8 h-8 text-accent-purple mx-auto mb-3" />
+            <h4 className="text-base font-bold text-white mb-1">No matching capabilities</h4>
+            <p className="text-xs text-text-secondary mb-4">
+              Try adjusting your search query or select another category filter.
+            </p>
+            <button
+              onClick={() => {
+                setSearchQuery("");
+                setActiveCategory("All Capabilities");
+              }}
+              className="text-xs text-accent-cyan font-bold hover:underline"
+            >
+              Reset Filters
+            </button>
+          </div>
+        )}
       </div>
 
-      {/* Slide-Over Drawer for Selected Service */}
+      {/* Service Detail Drawer */}
       <ServiceDetailDrawer
         service={selectedService}
         onClose={() => setSelectedService(null)}

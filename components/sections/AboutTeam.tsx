@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Image from "next/image";
 import { TEAM_MEMBERS, TeamMember } from "@/data/team";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { SpotlightCard } from "@/components/ui/SpotlightCard";
@@ -116,39 +117,47 @@ export const AboutTeam: React.FC<AboutTeamProps> = ({ members }) => {
               <motion.div key={member.id} variants={cardVariants}>
                 <SpotlightCard
                   onClick={() => setSelectedMember(member)}
-                  className={`p-6 flex flex-col justify-between group cursor-pointer bg-surface/40 backdrop-blur-md border transition-all duration-300 h-full ${
+                  className={`p-5 flex flex-col justify-between group cursor-pointer bg-surface/40 backdrop-blur-md border transition-all duration-300 h-full ${
                     isSkillMatch
                       ? "border-accent-purple shadow-glow-purple bg-surface/80"
                       : "border-white/10 hover:border-accent-purple/50 hover:-translate-y-1.5"
                   }`}
                 >
                   <div>
-                    {/* Top Header: Avatar + Category Pill */}
-                    <div className="flex items-center gap-4 mb-5">
+                    {/* Large Portrait Image Frame */}
+                    <div className="relative w-full aspect-[4/5] rounded-2xl mb-5 overflow-hidden bg-[#090B16] border border-white/10 group-hover:border-accent-purple/60 transition-all duration-300">
                       {member.image ? (
-                        <img
+                        <Image
                           src={member.image}
                           alt={member.name}
-                          className="w-14 h-14 rounded-2xl object-cover shadow-lg shrink-0 group-hover:scale-105 transition-transform border border-white/10"
+                          fill
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                          className="object-cover object-top group-hover:scale-105 transition-transform duration-500"
                         />
                       ) : (
-                        <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${avatarGradient} flex items-center justify-center text-white text-lg font-bold shadow-lg shrink-0 group-hover:scale-105 transition-transform`}>
+                        <div className={`w-full h-full bg-gradient-to-br ${avatarGradient} flex items-center justify-center text-white text-4xl font-bold font-sans shadow-inner`}>
                           {initials}
                         </div>
                       )}
-                      <div>
-                        <h4 className="text-lg font-bold text-white group-hover:text-accent-purple transition-colors">
-                          {member.name}
-                        </h4>
-                        <p className="text-xs text-text-secondary font-medium">{member.role}</p>
-                        <Pill variant="eyebrow" className="text-[9px] py-0.5 px-2 mt-1">
+                      {/* Gradient bottom overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#06060E]/90 via-transparent to-transparent pointer-events-none" />
+
+                      {/* Floating Category Pill */}
+                      <div className="absolute top-3 left-3">
+                        <Pill variant="eyebrow" className="text-[9px] py-0.5 px-2.5 bg-black/70 backdrop-blur-md border-white/20">
                           {member.category}
                         </Pill>
                       </div>
                     </div>
 
+                    {/* Member Details */}
+                    <h4 className="text-xl font-bold text-white group-hover:text-accent-purple transition-colors">
+                      {member.name}
+                    </h4>
+                    <p className="text-xs sm:text-sm text-text-secondary font-medium mt-0.5 mb-3">{member.role}</p>
+
                     {/* Bio Snippet */}
-                    <p className="text-xs sm:text-sm text-text-secondary leading-relaxed mb-6 line-clamp-3">
+                    <p className="text-xs text-text-secondary leading-relaxed mb-5 line-clamp-2">
                       {member.bio}
                     </p>
 

@@ -20,21 +20,21 @@ export interface TestimonialsProps {
 const TESTIMONIALS: TestimonialItem[] = [
   {
     quote:
-      "Cortex Core Group delivered beyond our expectations. Their innovative approach and professionalism are unmatched.",
+      "Cortex Core Group delivered beyond our expectations. Their innovative approach and engineering professionalism are unmatched.",
     author: "CEO, TechNova Solutions",
     initial: "T",
     rating: 5,
   },
   {
     quote:
-      "Their team transformed our idea into a powerful digital solution. We've seen real growth since launch!",
+      "Their team transformed our idea into a high-performance digital platform. We've seen real user adoption and growth since launch!",
     author: "Product Manager, FinEdge",
     initial: "F",
     rating: 5,
   },
   {
     quote:
-      "Reliable, creative and results-driven. Cortex Core Group is our go-to technology partner.",
+      "Reliable, creative and results-driven. Cortex Core Group is our permanent technology partner for scaling infrastructure.",
     author: "CTO, Nexora Systems",
     initial: "N",
     rating: 5,
@@ -66,13 +66,13 @@ export const Testimonials: React.FC<TestimonialsProps> = ({ testimonials }) => {
   };
 
   return (
-    <section className="py-24 relative bg-[#090914] border-t border-white/5">
+    <section className="py-16 sm:py-24 relative bg-[#090914] border-t border-white/5">
       <div className="max-w-7xl mx-auto px-4 sm:px-8">
         <SectionHeader
           eyebrow="CLIENT REVIEWS"
           title="What Our Clients Say"
           gradientWord="Clients"
-          description="Hear from companies that trust us to engineer their most critical digital platforms."
+          description="Hear from enterprise teams and startups that trust us to architect and engineer their critical digital platforms."
           align="center"
         />
 
@@ -86,7 +86,7 @@ export const Testimonials: React.FC<TestimonialsProps> = ({ testimonials }) => {
         >
           {list.map((testimonial, i) => (
             <motion.div key={i} variants={cardVariants}>
-              <SpotlightCard className="p-8 flex flex-col justify-between relative group bg-surface/40 backdrop-blur-md border border-white/10 hover:border-accent-purple/40 hover:-translate-y-1.5 transition-all duration-300 h-full">
+              <SpotlightCard className="p-8 flex flex-col justify-between relative group bg-surface/40 backdrop-blur-md border border-white/10 hover:border-accent-purple/40 hover:-translate-y-1.5 transition-all duration-300 h-full rounded-3xl">
                 <Quote className="w-10 h-10 text-accent-purple/20 absolute top-6 right-6 pointer-events-none group-hover:text-accent-purple/40 transition-colors" />
 
                 <div>
@@ -115,7 +115,7 @@ export const Testimonials: React.FC<TestimonialsProps> = ({ testimonials }) => {
           ))}
         </motion.div>
 
-        {/* Mobile: Carousel with navigation */}
+        {/* Mobile: Swipeable Carousel with Navigation */}
         <div className="md:hidden">
           <AnimatePresence mode="wait">
             <motion.div
@@ -123,24 +123,24 @@ export const Testimonials: React.FC<TestimonialsProps> = ({ testimonials }) => {
               initial={{ opacity: 0, x: shouldReduceMotion ? 0 : 30 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: shouldReduceMotion ? 0 : -30 }}
-              transition={{ duration: 0.3 }}
+              transition={{ duration: 0.25 }}
             >
-              <SpotlightCard className="p-8 flex flex-col justify-between relative group bg-surface/40 backdrop-blur-md border border-white/10 h-full">
-                <Quote className="w-10 h-10 text-accent-purple/20 absolute top-6 right-6 pointer-events-none" />
+              <SpotlightCard className="p-6 flex flex-col justify-between relative group bg-surface/50 backdrop-blur-md border border-white/15 h-full rounded-3xl shadow-xl">
+                <Quote className="w-8 h-8 text-accent-purple/20 absolute top-5 right-5 pointer-events-none" />
 
                 <div>
-                  <p className="text-sm text-text-secondary leading-relaxed mb-6 italic">
+                  <p className="text-xs sm:text-sm text-text-secondary leading-relaxed mb-5 italic">
                     &ldquo;{list[activeIndex].quote}&rdquo;
                   </p>
-                  <div className="flex items-center gap-1 text-amber-400 mb-6">
+                  <div className="flex items-center gap-1 text-amber-400 mb-5">
                     {Array.from({ length: list[activeIndex].rating || 5 }).map((_, idx) => (
-                      <Star key={idx} className="w-4 h-4 fill-amber-400" />
+                      <Star key={idx} className="w-3.5 h-3.5 fill-amber-400" />
                     ))}
                   </div>
                 </div>
 
-                <div className="flex items-center gap-3 pt-4 border-t border-white/10">
-                  <div className="w-9 h-9 rounded-full bg-gradient-accent flex items-center justify-center font-bold text-white text-xs shadow-glow-purple">
+                <div className="flex items-center gap-3 pt-3.5 border-t border-white/10">
+                  <div className="w-8 h-8 rounded-full bg-gradient-accent flex items-center justify-center font-bold text-white text-xs shadow-glow-purple">
                     {list[activeIndex].initial || list[activeIndex].author[0]}
                   </div>
                   <span className="text-xs font-semibold text-white">
@@ -152,29 +152,32 @@ export const Testimonials: React.FC<TestimonialsProps> = ({ testimonials }) => {
           </AnimatePresence>
 
           {/* Mobile navigation */}
-          <div className="flex items-center justify-center gap-4 mt-6">
+          <div className="flex items-center justify-center gap-4 mt-5">
             <button
               onClick={() => setActiveIndex((prev) => Math.max(0, prev - 1))}
               disabled={activeIndex === 0}
-              className="w-10 h-10 rounded-full bg-surface border border-white/10 flex items-center justify-center text-white disabled:opacity-30 disabled:cursor-not-allowed hover:border-accent-purple active:scale-95 transition-all"
+              className="w-10 h-10 rounded-full bg-surface border border-white/15 flex items-center justify-center text-white disabled:opacity-30 disabled:cursor-not-allowed hover:border-accent-purple active:scale-95 transition-all shadow-md"
+              aria-label="Previous testimonial"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
-            <div className="flex gap-2">
+            <div className="flex gap-1.5">
               {list.map((_, i) => (
                 <button
                   key={i}
                   onClick={() => setActiveIndex(i)}
-                  className={`w-2 h-2 rounded-full transition-all ${
-                    i === activeIndex ? "bg-accent-purple w-6" : "bg-white/20"
+                  className={`h-2 rounded-full transition-all ${
+                    i === activeIndex ? "bg-accent-purple w-6" : "bg-white/20 w-2"
                   }`}
+                  aria-label={`Go to slide ${i + 1}`}
                 />
               ))}
             </div>
             <button
               onClick={() => setActiveIndex((prev) => Math.min(list.length - 1, prev + 1))}
               disabled={activeIndex === list.length - 1}
-              className="w-10 h-10 rounded-full bg-surface border border-white/10 flex items-center justify-center text-white disabled:opacity-30 disabled:cursor-not-allowed hover:border-accent-purple active:scale-95 transition-all"
+              className="w-10 h-10 rounded-full bg-surface border border-white/15 flex items-center justify-center text-white disabled:opacity-30 disabled:cursor-not-allowed hover:border-accent-purple active:scale-95 transition-all shadow-md"
+              aria-label="Next testimonial"
             >
               <ChevronRight className="w-5 h-5" />
             </button>

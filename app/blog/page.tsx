@@ -4,26 +4,12 @@ import { BlogFeatured } from "@/components/sections/BlogFeatured";
 import { BlogGrid } from "@/components/sections/BlogGrid";
 import { BlogNewsletter } from "@/components/sections/BlogNewsletter";
 import { BottomCTA } from "@/components/sections/BottomCTA";
-import { BLOG_POSTS } from "@/data/blog";
+import { dataStore } from "@/lib/data-store";
 
-async function getPosts() {
-  const baseUrl =
-    process.env.NEXT_PUBLIC_API_URL ||
-    process.env.NEXT_PUBLIC_SITE_URL ||
-    "http://localhost:3000";
-  try {
-    const res = await fetch(`${baseUrl}/api/blog`, {
-      next: { revalidate: 60 },
-    });
-    if (!res.ok) return BLOG_POSTS;
-    return res.json();
-  } catch {
-    return BLOG_POSTS;
-  }
-}
+export const dynamic = "force-dynamic";
 
 export default async function BlogPage() {
-  const posts = await getPosts();
+  const posts = dataStore.getBlogPosts();
 
   return (
     <div className="flex flex-col min-h-screen">

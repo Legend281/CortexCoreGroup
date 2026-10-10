@@ -91,10 +91,9 @@ export const AboutTimeline: React.FC = () => {
   const [activeIdx, setActiveIdx] = useState(3);
   const shouldReduceMotion = useReducedMotion();
   const current = MILESTONES[activeIdx];
-  const IconComp = current.icon;
 
   return (
-    <section className="py-24 relative bg-[#070712] border-t border-white/5 overflow-hidden">
+    <section className="py-16 sm:py-24 relative bg-[#070712] border-t border-white/5 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-8">
         <SectionHeader
           eyebrow="OUR JOURNEY"
@@ -105,21 +104,21 @@ export const AboutTimeline: React.FC = () => {
         />
 
         {/* Timeline Navigation Tabs */}
-        <div className="flex items-center justify-center gap-3 mb-12 flex-wrap">
+        <div className="grid grid-cols-4 sm:flex items-center justify-center gap-1.5 sm:gap-3 mb-8 sm:mb-12">
           {MILESTONES.map((m, i) => {
             const isActive = i === activeIdx;
             return (
               <button
                 key={m.year}
                 onClick={() => setActiveIdx(i)}
-                className={`relative flex items-center gap-2 px-6 py-3 rounded-2xl border transition-all duration-300 active:scale-95 ${
+                className={`relative flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-6 py-2.5 sm:py-3 rounded-2xl border transition-all duration-300 active:scale-95 text-center ${
                   isActive
                     ? "bg-accent-purple/20 border-accent-purple text-white shadow-glow-purple"
                     : "bg-surface/40 border-white/10 text-text-secondary hover:border-white/20 hover:text-white"
                 }`}
               >
                 <span className="text-xs font-mono font-bold">{m.year}</span>
-                <span className="text-sm font-semibold hidden sm:inline">{m.title}</span>
+                <span className="text-xs sm:text-sm font-semibold hidden sm:inline">{m.title}</span>
 
                 {isActive && (
                   <motion.div
@@ -143,13 +142,13 @@ export const AboutTimeline: React.FC = () => {
             transition={{ duration: 0.35, ease: [0.23, 1, 0.32, 1] }}
           >
             <SpotlightCard
-              className="p-8 sm:p-12 bg-surface/50 backdrop-blur-xl border border-white/10 rounded-3xl shadow-2xl"
-              innerClassName="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center"
+              className="p-5 sm:p-12 bg-surface/50 backdrop-blur-xl border border-white/10 rounded-3xl shadow-2xl"
+              innerClassName="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-center"
             >
               {/* Left: Milestone Metadata */}
               <div className="lg:col-span-6 flex flex-col items-start">
-                <div className="flex items-center gap-3 mb-4">
-                  <span className="text-2xl font-mono font-bold text-accent-purple">
+                <div className="flex items-center gap-2.5 mb-3 sm:mb-4">
+                  <span className="text-xl sm:text-2xl font-mono font-bold text-accent-purple">
                     {current.year}
                   </span>
                   <Pill variant="eyebrow" className="text-[10px] py-0.5 px-2.5">
@@ -157,19 +156,19 @@ export const AboutTimeline: React.FC = () => {
                   </Pill>
                 </div>
 
-                <h3 className="text-3xl font-bold text-white mb-2">{current.title}</h3>
-                <p className="text-sm font-semibold text-accent-cyan mb-4 uppercase tracking-wider">
+                <h3 className="text-xl sm:text-3xl font-bold text-white mb-1.5 sm:mb-2">{current.title}</h3>
+                <p className="text-xs sm:text-sm font-semibold text-accent-cyan mb-3 sm:mb-4 uppercase tracking-wider">
                   {current.tagline}
                 </p>
 
-                <p className="text-base text-text-secondary leading-relaxed mb-6">
+                <p className="text-xs sm:text-base text-text-secondary leading-relaxed mb-4 sm:mb-6">
                   {current.description}
                 </p>
 
                 {/* Highlights */}
-                <ul className="space-y-2.5">
+                <ul className="space-y-2 sm:space-y-2.5">
                   {current.highlights.map((h) => (
-                    <li key={h} className="flex items-center gap-3 text-xs sm:text-sm text-white font-medium">
+                    <li key={h} className="flex items-center gap-2.5 text-xs sm:text-sm text-white font-medium">
                       <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
                       <span>{h}</span>
                     </li>
@@ -179,24 +178,24 @@ export const AboutTimeline: React.FC = () => {
 
               {/* Right: 3D Parallax MacOS Terminal Window Frame */}
               <div className="lg:col-span-6">
-                <TiltCard maxTilt={8}>
-                  <div className="rounded-2xl bg-[#050712] border border-white/15 p-5 shadow-2xl font-mono text-xs">
+                <TiltCard maxTilt={6}>
+                  <div className="rounded-2xl bg-[#050712] border border-white/15 p-4 sm:p-5 shadow-2xl font-mono text-[11px] sm:text-xs">
                     {/* Window Controls Header */}
-                    <div className="flex items-center justify-between pb-3 mb-3 border-b border-white/10">
-                      <div className="flex items-center gap-2">
-                        <div className="w-3 h-3 rounded-full bg-rose-500/90" />
-                        <div className="w-3 h-3 rounded-full bg-amber-500/90" />
-                        <div className="w-3 h-3 rounded-full bg-emerald-500/90" />
-                        <span className="text-[10px] text-text-secondary ml-2 flex items-center gap-1">
+                    <div className="flex items-center justify-between pb-2.5 sm:pb-3 mb-2.5 sm:mb-3 border-b border-white/10">
+                      <div className="flex items-center gap-1.5 sm:gap-2">
+                        <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-rose-500/90" />
+                        <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-amber-500/90" />
+                        <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-emerald-500/90" />
+                        <span className="text-[9px] sm:text-[10px] text-text-secondary ml-1.5 flex items-center gap-1">
                           <Terminal className="w-3 h-3 text-accent-purple" />
                           <span>era-{current.year}.sh</span>
                         </span>
                       </div>
-                      <span className="text-[10px] text-emerald-400 font-semibold">RELEASE ACTIVE</span>
+                      <span className="text-[9px] sm:text-[10px] text-emerald-400 font-semibold">RELEASE ACTIVE</span>
                     </div>
 
                     {/* Simulated Terminal Output */}
-                    <div className="space-y-2 text-text-secondary leading-relaxed">
+                    <div className="space-y-1.5 sm:space-y-2 text-text-secondary leading-relaxed overflow-x-auto">
                       {current.terminalLog.map((line, idx) => (
                         <div
                           key={idx}

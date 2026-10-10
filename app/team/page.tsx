@@ -6,25 +6,12 @@ import { TeamPhilosophy } from "@/components/sections/TeamPhilosophy";
 import { TeamCulture } from "@/components/sections/TeamCulture";
 import { BottomCTA } from "@/components/sections/BottomCTA";
 
-async function getTeam() {
-  const baseUrl =
-    process.env.NEXT_PUBLIC_API_URL ||
-    process.env.NEXT_PUBLIC_SITE_URL ||
-    "http://localhost:3000";
-  try {
-    const res = await fetch(`${baseUrl}/api/team`, {
-      next: { revalidate: 60 },
-    });
-    if (!res.ok) return null;
-    return res.json();
-  } catch (error) {
-    console.error("Failed to fetch team data for Team page:", error);
-    return null;
-  }
-}
+import { dataStore } from "@/lib/data-store";
+
+export const dynamic = "force-dynamic";
 
 export default async function TeamPage() {
-  const team = await getTeam();
+  const team = dataStore.getTeam();
 
   return (
     <div className="flex flex-col min-h-screen">
